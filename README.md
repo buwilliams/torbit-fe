@@ -4,7 +4,8 @@ Torbit FE Challenge Server
 Prerequisites
 ---
 
-* Node.js
+* [Node.js](https://nodejs.org) (install with [homebrew](http://brew.sh/) on mac `brew install node`)
+* Gulp `npm install -g gulp`
 
 Getting Started
 ---

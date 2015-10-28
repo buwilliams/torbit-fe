@@ -1,8 +1,6 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var wiredep = require('wiredep').stream;
-var rename = require("gulp-rename");
-var connect = require('gulp-connect');
 var rimraf = require('rimraf');
 var runSequence = require('run-sequence');
 var mainBowerFiles = require('main-bower-files');
@@ -34,7 +32,7 @@ gulp.task('bower', function () {
       directory: project.app + '/bower_components',
       ignorePath: '..'
     }))
-  .pipe(rename('index.html'))
+  .pipe($.rename('index.html'))
   .pipe(gulp.dest(project.app));
 });
 
@@ -104,27 +102,30 @@ gulp.task('copy-bootstrap-fonts', function () {
 
 gulp.task('copy-index', function () {
   gulp.src(paths.index.prod)
-    .pipe(rename('index.html'))
+    .pipe($.rename('index.html'))
     .pipe(gulp.dest(project.dist));
-});
-
-gulp.task('build', function (cb) {
-  runSequence(['clean'], ['images', 'lint', 'minify-css', 'minify-vendor-css', 'minify-js', 'minify-vendor-js', 'copy-html-files', 'copy-bootstrap-fonts', 'copy-index']);
 });
 
 // ******************
 // Main CLI
 // ******************
 
+// Serves the development version
 gulp.task('serve', ['bower'], function () {
-  connect.server({
+  $.connect.server({
     root: project.app + '/',
     port: 9000
   });
 });
 
+// Run this task before serve:prod
+gulp.task('build', function (cb) {
+  runSequence(['clean'], ['images', 'lint', 'minify-css', 'minify-vendor-css', 'minify-js', 'minify-vendor-js', 'copy-html-files', 'copy-bootstrap-fonts', 'copy-index']);
+});
+
+// Serves the production version
 gulp.task('serve:prod', function () {
-  connect.server({
+  $.connect.server({
     root: project.dist + '/',
     port: 9000
   });

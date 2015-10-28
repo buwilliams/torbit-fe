@@ -2,11 +2,12 @@
   "name": "torbit-fe",
   "version": "1.0.0",
   "description": "Torbit FE Challenge Server",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "main": "",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/buwilliams/torbit-fe.git"
   },
-  "author": "",
+  "author": "Buddy Willimas <buddywilliams@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "bower": "^1.6.5",
