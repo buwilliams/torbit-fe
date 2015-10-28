@@ -1,8 +1,10 @@
-// gulp
 var gulp = require('gulp');
+var $ = require('gulp-load-plugins')();
 var wiredep = require('wiredep').stream;
 var rename = require("gulp-rename");
 var connect = require('gulp-connect');
+var rimraf = require('rimraf');
+var runSequence = require('run-sequence');
 
 // ******************
 // Project Settings
@@ -34,13 +36,38 @@ gulp.task('bower', function () {
   .pipe(gulp.dest(project.app));
 });
 
+gulp.task('images', function () {
+  return gulp.src(project.app + '/images/**/*')
+    .pipe($.cache($.imagemin({
+        optimizationLevel: 5,
+        progressive: true,
+        interlaced: true
+    })))
+    .pipe(gulp.dest(project.dist + '/images'));
+});
+
+gulp.task('clean:prod', function (cb) {
+  rimraf(project.dist, cb);
+});
+
+
+gulp.task('build:prod', function (cb) {
+});
+
+gulp.task('build', ['clean:prod'], function (cb) {
+  runSequence(['images', 'build:prod']);
+});
+
 // ******************
 // Main CLI
 // ******************
 
-gulp.task('connect', ['bower'], function () {
+gulp.task('serve', ['bower'], function () {
   connect.server({
     root: 'app/',
     port: 9000
   });
+});
+
+gulp.task('serve:prod', ['build'], function () {
 });

@@ -3,8 +3,7 @@
 var app = angular.module('torbitFeApp', [
   'ngCookies',
   'ngResource',
-  'ngRoute',
-  'ngSanitize'
+  'ngRoute'
 ]);
 
 app.config(function ($routeProvider) {
