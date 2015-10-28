@@ -19,7 +19,10 @@
     "angular": "~1.4.7",
     "angular-route": "~1.4.7",
     "jquery": "~2.1.4",
-    "bootstrap": "~3.3.5"
+    "bootstrap": "~3.3.5",
+    "angular-cookies": "~1.4.7",
+    "angular-resource": "~1.4.7",
+    "angular-sanitize": "~1.4.7"
   },
   "appPath": "app"
 }

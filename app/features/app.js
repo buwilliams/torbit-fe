@@ -10,7 +10,7 @@ var app = angular.module('torbitFeApp', [
 app.config(function ($routeProvider) {
   $routeProvider
     .when('/', {
-      templateUrl: 'views/main.html',
+      templateUrl: 'features/main/main.html',
       controller: 'MainCtrl',
       controllerAs: 'main'
     })
