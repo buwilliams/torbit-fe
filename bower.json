@@ -1,13 +1,13 @@
 {
   "name": "torbit-fe",
   "description": "",
-  "main": "index.js",
+  "main": "",
   "authors": [
     "Buddy Williams <buddywilliams@gmail.com>"
   ],
   "license": "ISC",
   "moduleType": [],
-  "homepage": "",
+  "homepage": "https://github.com/buwilliams/torbit-fe",
   "ignore": [
     "**/.*",
     "node_modules",
