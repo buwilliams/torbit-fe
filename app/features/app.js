@@ -1,7 +1,8 @@
 var app = angular.module('torbitFeApp', [
   'ngCookies',
   'ngResource',
-  'ngRoute'
+  'ngRoute',
+  'n3-line-chart'
 ]);
 
 // Global App Config
@@ -22,6 +23,10 @@ app.config(function ($routeProvider, $httpProvider, Config) {
       templateUrl: 'features/signon/signon.html',
       controller: 'SignOnCtrl'
     })
+    .when('/report', {
+      templateUrl: 'features/report/report.html',
+      controller: 'ReportCtrl'
+    })
     .otherwise({
       redirectTo: '/signon'
     });
@@ -29,9 +34,8 @@ app.config(function ($routeProvider, $httpProvider, Config) {
   // Allow cookie to be stored from remote server
   $httpProvider.defaults.withCredentials = true;
 
-  // Configures the format used in the body of POST
-  $httpProvider.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
-  $httpProvider.defaults.transformRequest.unshift(function (data, headersGetter) {
+  // Configures the format used in the body of POST or PUT
+  var transformBody = function (data, headersGetter) {
     var key, result = [];
     if (typeof data === "string") {
       return data;
@@ -42,21 +46,29 @@ app.config(function ($routeProvider, $httpProvider, Config) {
       }
     }
     return result.join("&");
-  });
+  };
 
-  // Add X-User-Id to all requests so that the backend
-  // server can know which client application is calling it
-  $httpProvider.interceptors.push(function($location) {
+  $httpProvider.interceptors.push(function($q, $location) {
     return {
       'request': function(config) {
+
+        // Add X-User-Id to all requests so that the backend
+        // server can know which client application is calling it
         config.headers['X-User-Id'] = Config.clientId;
+
+        // Configures the format used in the body of POST or PUT
+        if(config.method === 'POST' || config.method === 'PUT') {
+          config.transformRequest.unshift(transformBody);
+          config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+        }
+
         return config;
       },
       'responseError': function(response) {
-        if(response.status === 401) {
+        if(response.status === 401 && response.config.url !== Config.serverUrl + '/login') {
           $location.path('/signon');
         }
-        return response;
+        return $q.reject(response);
       }
     };
   });

@@ -1,6 +1,6 @@
 var app = angular.module('torbitFeApp');
 
-app.controller('SignOnCtrl', function($scope, $http, Config, $location) {
+app.controller('SignOnCtrl', function($scope, $http, $location, Config) {
 
   $scope.email = 'admin@torbit.com';
   $scope.password = 'torbit';
@@ -8,13 +8,17 @@ app.controller('SignOnCtrl', function($scope, $http, Config, $location) {
   $scope.statusMessage = '';
 
   $scope.signon = function() {
-    $scope.statusMessage = 'Loading...';
-    $http.post(Config.serverUrl + '/login', { email: $scope.email, password: $scope.password })
+    $scope.statusMessage = '';
+    $http.post(Config.serverUrl + '/login', { 'email': $scope.email, 'password': $scope.password })
       .then(function(httpData) {
         $location.path('/home');
       },
       function(httpData) {
-        $scope.errorMessage = 'Invalid email or password.';
+        if(httpData.status === 401) {
+          $scope.errorMessage = 'Invalid email or password. Try again.';
+        } else {
+          $scope.errorMessage = 'Server error (status code: '+httpData.status+'). Try again.';
+        }
       })
       .finally(function() {
         $scope.statusMessage = '';

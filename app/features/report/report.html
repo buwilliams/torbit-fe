@@ -1,0 +1,14 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Time Series Data</h3>
+      <div class="col-xs-1">
+        <input ng-model="days" class="form-control" placeholder="# of days (optional)">
+      </div>
+      <div class="col-md-1">
+        <button ng-click="getReport()" class="btn btn-default">Get Report</button>
+      </div>
+      <linechart data="data" options="options" mode="" width="2000" height="400"></linechart>
+    </div>
+  </div>
+</div>
