@@ -16,8 +16,8 @@ var project = {
 
 var paths = {
   index: {
-    dev: project.app + '/templates/dev.html',
-    prod: project.app + '/templates/prod.html'
+    dev: project.app + '/index.dev.html',
+    prod: project.app + '/index.prod.html'
   }
 };
 
