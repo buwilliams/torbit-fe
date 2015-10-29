@@ -1,12 +1,18 @@
 var app = angular.module('torbitFeApp');
 
-app.controller('SignOnCtrl', function($scope) {
+app.controller('SignOnCtrl', function($scope, $http, Config) {
 
-  $scope.email = null;
-  $scope.password = null;
+  $scope.email = 'admin@torbit.com';
+  $scope.password = 'torbit';
 
   $scope.signon = function() {
-    console.log(new Date(), $scope.email, $scope.password);
+    $http.post(Config.serverUrl + '/login', { email: $scope.email, password: $scope.password })
+      .then(function(httpData) {
+        console.log(httpData);
+      },
+      function(httpData) {
+        console.error(httpData);
+      });
   };
 
 });
