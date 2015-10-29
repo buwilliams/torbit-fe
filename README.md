@@ -7,6 +7,7 @@ Prerequisites
 * [Node.js](https://nodejs.org) (install with [homebrew](http://brew.sh/) on mac `brew install node`)
 * Gulp `npm install -g gulp`
 * Bower `npm install -g bower`
+* Karma `npm install -g karma-cli`
 
 Getting Started
 ---
