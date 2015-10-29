@@ -26,6 +26,9 @@ app.config(function ($routeProvider, $httpProvider, Config) {
       redirectTo: '/signon'
     });
 
+  // Allow cookie to be stored from remote server
+  $httpProvider.defaults.withCredentials = true;
+
   // Configures the format used in the body of POST
   $httpProvider.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
   $httpProvider.defaults.transformRequest.unshift(function (data, headersGetter) {
@@ -43,11 +46,17 @@ app.config(function ($routeProvider, $httpProvider, Config) {
 
   // Add X-User-Id to all requests so that the backend
   // server can know which client application is calling it
-  $httpProvider.interceptors.push(function() {
+  $httpProvider.interceptors.push(function($location) {
     return {
       'request': function(config) {
         config.headers['X-User-Id'] = Config.clientId;
         return config;
+      },
+      'responseError': function(response) {
+        if(response.status === 401) {
+          $location.path('/signon');
+        }
+        return response;
       }
     };
   });
