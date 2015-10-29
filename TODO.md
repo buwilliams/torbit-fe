@@ -4,13 +4,16 @@ TODO
 In-progress
 ---
 
-* login screen
+* move login logic to service
+* add interceptor logic to handle requests that aren't authenticated anymore
 
 Backlog
 ---
 
 Done
 ---
+
+* login screen
 
 Clean-up and Wishlist
 ---
