@@ -23,5 +23,5 @@ Architecture
 The application consists of five main features:
 
 1. Foundation - project layout/organization (by feature) and build script (gulpfile.js)
-1. Testing Framework - Karama with Jasmine
+1. Testing Framework - Karma with Jasmine
 1. Features (login, report, site configuration, and user management)
