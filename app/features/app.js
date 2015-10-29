@@ -14,9 +14,9 @@ app.config(function ($routeProvider, $httpProvider, Config) {
 
   // Routes
   $routeProvider
-    .when('/', {
-      templateUrl: 'features/main/main.html',
-      controller: 'MainCtrl'
+    .when('/home', {
+      templateUrl: 'features/home/home.html',
+      controller: 'HomeCtrl'
     })
     .when('/signon', {
       templateUrl: 'features/signon/signon.html',

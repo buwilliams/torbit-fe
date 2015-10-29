@@ -11,7 +11,7 @@ app.controller('SignOnCtrl', function($scope, $http, Config, $location) {
     $scope.statusMessage = 'Loading...';
     $http.post(Config.serverUrl + '/login', { email: $scope.email, password: $scope.password })
       .then(function(httpData) {
-        $location.path('/');
+        $location.path('/home');
       },
       function(httpData) {
         $scope.errorMessage = 'Invalid email or password.';
