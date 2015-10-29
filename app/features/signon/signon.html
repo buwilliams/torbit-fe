@@ -12,7 +12,11 @@
             <label for="password">Password</label>
             <input ng-model="password" type="password" class="form-control" id="password" placeholder="Password">
           </div>
-          <button type="submit" class="btn btn-default">Sign-on</button>
+          <div ng-if="errorMessage != ''">
+            <p class="text-danger">{{ errorMessage }}</p>
+          </div>
+          <button type="submit" class="btn btn-default" ng-disabled="statusMessage != ''">Sign-on</button>
+          {{ statusMessage }}
         </form>
       </div>
     </div>
