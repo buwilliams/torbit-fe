@@ -18,10 +18,14 @@ Getting Started
 * `gulp serve` (or for production: `gulp build && gulp serve:prod`)
 * Open browser [http://localhost:9000](http://localhost:9000)
 
+To run unit tests:
+
+* `karma start`
+
 Architecture
 ---
 
-The application consists of five main features:
+The application consists of three main parts:
 
 1. Foundation - project layout/organization (by feature) and build script (gulpfile.js)
 1. Testing Framework - Karma with Jasmine
