@@ -11,7 +11,10 @@ Backlog
 
 * CRUD of User
 * CRUD of Config
-* write unit tests
+* write unit tests for $u factory
+* write unit tests for report controller
+* write unit tests for report factory
+* support SD Admin bootstrap theme in gulpfile build task
 
 Done
 ---
