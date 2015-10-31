@@ -9,6 +9,9 @@ In-progress
 Backlog
 ---
 
+* CRUD of User
+* CRUD of Config
+* write unit tests
 
 Done
 ---
@@ -17,6 +20,7 @@ Done
 * validate email and password on sign-on screen (provided by angular)
 * add interceptor logic to handle requests that aren't authenticated anymore
 * time series chart
+* write unit tests for signon controller
 
 Clean-up and Wishlist
 ---
