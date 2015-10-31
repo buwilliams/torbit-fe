@@ -20,7 +20,7 @@ Getting Started
 
 To run unit tests:
 
-* `karma start`
+* From the root project directory run: `karma start`
 
 Architecture
 ---
