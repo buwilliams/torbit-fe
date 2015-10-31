@@ -17,7 +17,6 @@ describe('SignOnCtrl', function() {
      // backend definition common for all tests
      authRequestHandler = $httpBackend.when('POST', Config.serverUrl + '/login').respond();
 
-
      createController = function() {
        return $controller('SignOnCtrl', {'$scope' : $scope });
      };
