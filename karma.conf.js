@@ -18,9 +18,9 @@ module.exports = function(config) {
       'app/bower_components/angular/angular.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
       'app/bower_components/angular-cookies/angular-cookies.js',
-      'app/bower_components/angular-route/angular-route.js',
       'app/bower_components/angular-resource/angular-resource.js',
       'app/bower_components/n3-line-chart/build/line-chart.min.js',
+      'app/bower_components/angular-ui-router/release/angular-ui-router.min.js',
       'app/features/app.js', // must be first
       'app/features/**/*.js',
       'test/features/**/*-spec.js'

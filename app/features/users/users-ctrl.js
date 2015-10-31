@@ -1,9 +1,6 @@
 var app = angular.module('torbitFeApp');
 
-app.controller('HomeCtrl', function($scope, $http, Config) {
-
-  $scope.template = 'features/home/home.html';
-  $scope.message = "Hello, world!";
+app.controller('UsersCtrl', function($scope, $http, Config) {
 
   $scope.getUsers = function() {
     $http.get(Config.serverUrl + '/users')

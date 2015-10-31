@@ -5,6 +5,7 @@ In-progress
 ---
 
 * integrate SD Admin bootstrap theme
+* use ui.router for nested routes
 
 Backlog
 ---
@@ -15,6 +16,7 @@ Backlog
 * write unit tests for report controller
 * write unit tests for report factory
 * support SD Admin bootstrap theme in gulpfile build task
+* test transformBody in app.js
 
 Done
 ---

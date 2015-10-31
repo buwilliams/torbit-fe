@@ -1,6 +1,6 @@
 var app = angular.module('torbitFeApp');
 
-app.factory('ReportFactory', function($http, Config, $u) {
+app.factory('ChartsFactory', function($http, Config, $u) {
   var factory = {};
 
   factory.data = [];
@@ -17,7 +17,7 @@ app.factory('ReportFactory', function($http, Config, $u) {
         $u.overwrite(factory.data, factory.formatData(httpResponse.data.data));
       },
       function(httpResponse) {
-        console.error('Report Factory Error', httpResponse);
+        console.error('Chart Factory Error', httpResponse);
       });
   };
 

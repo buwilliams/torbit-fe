@@ -1,0 +1,25 @@
+<div class="row ng-scope">
+  <div class="col-lg-12">
+    <h1 class="page-header">
+      Charts <small>Performance</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li class="active">
+      <i class="fa fa-bar-chart-o"></i> Charts</li>
+    </ol>
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Time Series Report</h3>
+  </div>
+  <div class="panel-body">
+    <div class="col-xs-1">
+      <input ng-model="days" class="form-control" placeholder="# days (optional)">
+    </div>
+    <div class="col-md-1">
+      <button ng-click="getTimeSeriesChart()" class="btn btn-default">Get Report</button>
+    </div>
+    <linechart data="data" options="options" mode="" width="2000" height="400"></linechart>
+  </div>
+</div>

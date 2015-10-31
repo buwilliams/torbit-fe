@@ -1,8 +1,8 @@
 var app = angular.module('torbitFeApp', [
   'ngCookies',
   'ngResource',
-  'ngRoute',
-  'n3-line-chart'
+  'n3-line-chart',
+  'ui.router'
 ]);
 
 // Global App Config
@@ -11,25 +11,52 @@ app.constant('Config', {
   clientId: '860dc32cb99cfbd85ea19b49f448371036be8770'
 });
 
-app.config(function ($routeProvider, $httpProvider, Config) {
+app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, Config) {
 
   // Routes
-  $routeProvider
-    .when('/home', {
+  $stateProvider
+    .state('wrapper', {
+      url: '',
+      templateUrl: 'features/home/wrapper.html',
+      controller: 'WrapperCtrl'
+    })
+    .state('wrapper.home', {
+      url: '/home',
       templateUrl: 'features/home/home.html',
       controller: 'HomeCtrl'
     })
-    .when('/signon', {
+    .state('wrapper.signon', {
+      url: '/signon',
       templateUrl: 'features/signon/signon.html',
       controller: 'SignOnCtrl'
     })
+    .state('wrapper.charts', {
+      url: '/charts',
+      templateUrl: 'features/charts/charts.html',
+      controller: 'ChartsCtrl'
+    });
+
+  // For any unmatched url, redirect to /index
+  $urlRouterProvider.otherwise('/signon');
+
+  /*
+  $routeProvider
+    .when('/home', {
+      templateUrl: 'features/home/wrapper.html',
+      controller: 'HomeCtrl'
+    })
+    .when('/signon', {
+      templateUrl: 'features/home/wrapper.html',
+      controller: 'SignOnCtrl'
+    })
     .when('/report', {
-      templateUrl: 'features/report/report.html',
+      templateUrl: 'features/home/wrapper.html',
       controller: 'ReportCtrl'
     })
     .otherwise({
       redirectTo: '/signon'
     });
+  */
 
   // Allow cookie to be stored from remote server
   $httpProvider.defaults.withCredentials = true;

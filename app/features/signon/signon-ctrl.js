@@ -2,6 +2,7 @@ var app = angular.module('torbitFeApp');
 
 app.controller('SignOnCtrl', function($scope, $http, $location, Config) {
 
+  $scope.template = 'features/signon/signon.html';
   $scope.email = 'admin@torbit.com';
   $scope.password = 'torbit';
   $scope.errorMessage = '';
