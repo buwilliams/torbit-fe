@@ -7,11 +7,11 @@ describe('SignOnCtrl', function() {
    beforeEach(inject(function($injector) {
      // Set up the mock http service responses
      $httpBackend = $injector.get('$httpBackend');
-     Config = $injector.get('Config');
-     $location = $injector.get('$location');
      // backend definition common for all tests
      authRequestHandler = $httpBackend.when('POST', Config.serverUrl + '/login').respond();
 
+     Config = $injector.get('Config');
+     $location = $injector.get('$location');
      // Get hold of a scope (i.e. the root scope)
      $scope = $injector.get('$rootScope');
      // The $controller service is used to create instances of controllers
