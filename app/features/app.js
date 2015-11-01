@@ -39,14 +39,14 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, Config, 
       controller: 'ChartsCtrl'
     });
 
+  // For any unmatched url, redirect to /index
+  $urlRouterProvider.otherwise('/home');
+
   // Configure local storage
   localStorageServiceProvider
     .setPrefix('torbitFeApp')
     .setStorageType('sessionStorage')
     .setNotify(true, true);
-
-  // For any unmatched url, redirect to /index
-  $urlRouterProvider.otherwise('/signon');
 
   // Allow cookie to be stored from remote server
   $httpProvider.defaults.withCredentials = true;
@@ -93,11 +93,16 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, Config, 
 });
 
 app.run(function($rootScope, $state, AuthFactory) {
-  // Check Authentication and redirect to sign-on page
-  // if the user isn't signed in
   $rootScope.$on('$locationChangeSuccess', function() {
+    // Check Authentication and redirect to sign-on page
+    // if the user isn't signed in
     if(!AuthFactory.isAuthenticated()) {
       $state.go('wrapper.signon');
+    } else if($state.current.name === 'wrapper' || $state.current.name === '') {
+      // Since the wrapper state shouldn't be visited (it's just the wrapper for
+      // the other states), we can redirect them to the home state. This also
+      // handles the case where they didn't supply any state.
+      $state.go('wrapper.home');
     }
   });
 });
