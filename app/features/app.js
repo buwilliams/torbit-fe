@@ -37,6 +37,16 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, Config, 
       url: '/charts',
       templateUrl: 'features/charts/charts.html',
       controller: 'ChartsCtrl'
+    })
+    .state('wrapper.users', {
+      url: '/users',
+      templateUrl: 'features/users/users.html',
+      controller: 'UsersCtrl'
+    })
+    .state('wrapper.config', {
+      url: '/config',
+      templateUrl: 'features/site-config/site-config.html',
+      controller: 'SiteConfigCtrl'
     });
 
   // For any unmatched url, redirect to /index
@@ -92,16 +102,19 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, Config, 
   });
 });
 
-app.run(function($rootScope, $state, AuthFactory) {
+app.run(function($rootScope, $state, $location, AuthFactory) {
   $rootScope.$on('$locationChangeSuccess', function() {
     // Check Authentication and redirect to sign-on page
     // if the user isn't signed in
     if(!AuthFactory.isAuthenticated()) {
       $state.go('wrapper.signon');
-    } else if($state.current.name === 'wrapper' || $state.current.name === '') {
-      // Since the wrapper state shouldn't be visited (it's just the wrapper for
-      // the other states), we can redirect them to the home state. This also
-      // handles the case where they didn't supply any state.
+      return;
+    }
+
+    // Since the wrapper state shouldn't be visited (it's just the wrapper for
+    // the other states), we can redirect them to the home state. This also
+    // handles the case where they didn't supply any state.
+    if($location.path() === '') {
       $state.go('wrapper.home');
     }
   });
