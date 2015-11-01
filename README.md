@@ -29,4 +29,4 @@ The application consists of three main parts:
 
 1. Foundation - project layout/organization (by feature) and build script (gulpfile.js)
 1. Testing Framework - Karma with Jasmine
-1. Features (login, report, site configuration, and user management)
+1. Features (Sign-on, Charts, User Management, and Site Configuration)
