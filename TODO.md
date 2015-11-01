@@ -36,8 +36,6 @@ Done
 Clean-up and Wishlist
 ---
 
-* set cookie on successful sign-on
-* check for auth cookie presence and redirect to sign-on screen
 * cache buster for build assets (css, js, etc.)
 * automatically source in angular controllers and services as part of `gulp serve`
 * format dates on chart
