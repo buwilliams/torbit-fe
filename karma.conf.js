@@ -22,9 +22,10 @@ module.exports = function(config) {
       'app/bower_components/n3-line-chart/build/line-chart.min.js',
       'app/bower_components/angular-ui-router/release/angular-ui-router.min.js',
       'app/bower_components/underscore/underscore-min.js',
-      'app/bower_components/angular-local-storage/angular-local-storage.min.js',
+      'app/bower_components/angular-local-storage/dist/angular-local-storage.min.js',
       'app/features/app.js', // must be first
       'app/features/**/*.js',
+      'test/mocks/**/*.js',
       'test/features/**/*-spec.js'
     ],
 

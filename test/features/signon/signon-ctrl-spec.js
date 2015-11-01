@@ -4,6 +4,8 @@ describe('SignOnCtrl', function() {
    // Set up the module
   beforeEach(module('torbitFeApp'));
 
+  beforeEach(module('uiRouterNoop'));
+
   beforeEach(inject(function($injector) {
     Config = $injector.get('Config');
     $location = $injector.get('$location');
@@ -15,7 +17,7 @@ describe('SignOnCtrl', function() {
     // Set up the mock http service responses
     $httpBackend = $injector.get('$httpBackend');
     // backend definition common for all tests
-    authRequestHandler = $httpBackend.when('POST', Config.serverUrl + '/login').respond();
+    authRequestHandler = $httpBackend.when('POST', Config.serverUrl + '/login').respond({});
 
     createController = function() {
       return $controller('SignOnCtrl', {'$scope' : $scope });
@@ -61,7 +63,7 @@ describe('SignOnCtrl', function() {
     });
 
     it('should pass authentication', function() {
-      authRequestHandler.respond(200, '');
+      authRequestHandler.respond(200, {});
       var ctrl = createController();
       $httpBackend.expectPOST(Config.serverUrl + '/login');
       $scope.signon();
