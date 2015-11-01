@@ -2,7 +2,8 @@ var app = angular.module('torbitFeApp', [
   'ngCookies',
   'ngResource',
   'n3-line-chart',
-  'ui.router'
+  'ui.router',
+  'LocalStorageModule'
 ]);
 
 // Global App Config
@@ -11,7 +12,9 @@ app.constant('Config', {
   clientId: '860dc32cb99cfbd85ea19b49f448371036be8770'
 });
 
-app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, Config) {
+app.value('User', {});
+
+app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, Config, localStorageServiceProvider) {
 
   // Routes
   $stateProvider
@@ -36,27 +39,14 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, Config) 
       controller: 'ChartsCtrl'
     });
 
+  // Configure local storage
+  localStorageServiceProvider
+    .setPrefix('torbitFeApp')
+    .setStorageType('sessionStorage')
+    .setNotify(true, true);
+
   // For any unmatched url, redirect to /index
   $urlRouterProvider.otherwise('/signon');
-
-  /*
-  $routeProvider
-    .when('/home', {
-      templateUrl: 'features/home/wrapper.html',
-      controller: 'HomeCtrl'
-    })
-    .when('/signon', {
-      templateUrl: 'features/home/wrapper.html',
-      controller: 'SignOnCtrl'
-    })
-    .when('/report', {
-      templateUrl: 'features/home/wrapper.html',
-      controller: 'ReportCtrl'
-    })
-    .otherwise({
-      redirectTo: '/signon'
-    });
-  */
 
   // Allow cookie to be stored from remote server
   $httpProvider.defaults.withCredentials = true;
@@ -75,7 +65,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, Config) 
     return result.join("&");
   };
 
-  $httpProvider.interceptors.push(function($q, $location) {
+  $httpProvider.interceptors.push(function($q, $location, AuthFactory) {
     return {
       'request': function(config) {
 
@@ -93,10 +83,21 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, Config) 
       },
       'responseError': function(response) {
         if(response.status === 401 && response.config.url !== Config.serverUrl + '/login') {
+          AuthFactory.removeUser();
           $location.path('/signon');
         }
         return $q.reject(response);
       }
     };
+  });
+});
+
+app.run(function($rootScope, $state, AuthFactory) {
+  // Check Authentication and redirect to sign-on page
+  // if the user isn't signed in
+  $rootScope.$on('$locationChangeSuccess', function() {
+    if(!AuthFactory.isAuthenticated()) {
+      $state.go('wrapper.signon');
+    }
   });
 });

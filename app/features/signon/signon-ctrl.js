@@ -1,6 +1,6 @@
 var app = angular.module('torbitFeApp');
 
-app.controller('SignOnCtrl', function($scope, $http, $location, Config) {
+app.controller('SignOnCtrl', function($scope, $http, $location, Config, AuthFactory) {
 
   $scope.template = 'features/signon/signon.html';
   $scope.email = 'admin@torbit.com';
@@ -12,6 +12,7 @@ app.controller('SignOnCtrl', function($scope, $http, $location, Config) {
     $scope.statusMessage = '';
     $http.post(Config.serverUrl + '/login', { 'email': $scope.email, 'password': $scope.password })
       .then(function(httpData) {
+        AuthFactory.saveUser(httpData.data);
         $location.path('/home');
       },
       function(httpData) {

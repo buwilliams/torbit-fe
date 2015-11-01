@@ -1,6 +1,6 @@
 var app = angular.module('torbitFeApp');
 
-app.controller('HomeCtrl', function($scope, $http, Config) {
+app.controller('HomeCtrl', function($scope, $http, Config, User) {
 
   $scope.template = 'features/home/home.html';
   $scope.message = "Hello, world!";
