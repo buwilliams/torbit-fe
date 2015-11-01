@@ -12,7 +12,6 @@ Backlog
 
 * CRUD of User Management
 * CRUD of Site Configurations
-* write unit tests for $u factory
 * write unit tests for report controller
 * write unit tests for report factory
 * write unit tests for user controller/factory
@@ -30,6 +29,7 @@ Done
 * write unit tests for signon controller
 * integrate SD Admin bootstrap theme
 * use ui.router for nested routes
+* write unit tests for $u factory
 
 Clean-up and Wishlist
 ---

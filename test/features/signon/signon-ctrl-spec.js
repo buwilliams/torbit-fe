@@ -2,30 +2,30 @@ describe('SignOnCtrl', function() {
   var $httpBackend, $scope, $location, createController, authRequestHandler, Config;
 
    // Set up the module
-   beforeEach(module('torbitFeApp'));
+  beforeEach(module('torbitFeApp'));
 
-   beforeEach(inject(function($injector) {
-     Config = $injector.get('Config');
-     $location = $injector.get('$location');
-     // Get hold of a scope (i.e. the root scope)
-     $scope = $injector.get('$rootScope');
-     // The $controller service is used to create instances of controllers
-     var $controller = $injector.get('$controller');
+  beforeEach(inject(function($injector) {
+    Config = $injector.get('Config');
+    $location = $injector.get('$location');
+    // Get hold of a scope (i.e. the root scope)
+    $scope = $injector.get('$rootScope');
+    // The $controller service is used to create instances of controllers
+    var $controller = $injector.get('$controller');
 
-     // Set up the mock http service responses
-     $httpBackend = $injector.get('$httpBackend');
-     // backend definition common for all tests
-     authRequestHandler = $httpBackend.when('POST', Config.serverUrl + '/login').respond();
+    // Set up the mock http service responses
+    $httpBackend = $injector.get('$httpBackend');
+    // backend definition common for all tests
+    authRequestHandler = $httpBackend.when('POST', Config.serverUrl + '/login').respond();
 
-     createController = function() {
-       return $controller('SignOnCtrl', {'$scope' : $scope });
-     };
-   }));
+    createController = function() {
+      return $controller('SignOnCtrl', {'$scope' : $scope });
+    };
+  }));
 
-   afterEach(function() {
-     $httpBackend.verifyNoOutstandingExpectation();
-     $httpBackend.verifyNoOutstandingRequest();
-   });
+  afterEach(function() {
+    $httpBackend.verifyNoOutstandingExpectation();
+    $httpBackend.verifyNoOutstandingRequest();
+  });
 
   describe('$scope.signon', function() {
 
