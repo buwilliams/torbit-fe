@@ -4,6 +4,8 @@ describe('SignOnCtrl', function() {
    // Set up the module
   beforeEach(module('torbitFeApp'));
 
+  // Noop the ui.router since it will attempt to make
+  // additional http requests for templates
   beforeEach(module('uiRouterNoop'));
 
   beforeEach(inject(function($injector) {
