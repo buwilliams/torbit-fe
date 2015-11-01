@@ -4,20 +4,19 @@ TODO
 In-progress
 ---
 
-* add cookie on sign-on
-* make ui menu understand signed-in/signed-out
+* CRUD of User Management
 
 Backlog
 ---
 
-* CRUD of User Management
 * CRUD of Site Configurations
-* write unit tests for report controller
-* write unit tests for report factory
-* write unit tests for user controller/factory
-* write unit tests for site administrator controller/factory
+* tests for report controller
+* tests for report factory
+* tests for user controller/factory
+* tests for site administrator controller/factory
+* tests for AuthFactory
+* tests transformBody in app.js
 * support SD Admin bootstrap theme in gulpfile build task
-* test transformBody in app.js
 
 Done
 ---
@@ -30,6 +29,9 @@ Done
 * integrate SD Admin bootstrap theme
 * use ui.router for nested routes
 * write unit tests for $u factory
+* add localStorage for sign-on
+* make ui menu understand signed-in/signed-out
+* fixed broken tests caused by ui.router and $u throws
 
 Clean-up and Wishlist
 ---
