@@ -24,16 +24,13 @@ describe('UsersFactory', function() {
 
   describe('getUsers', function() {
 
-    var fixture;
+    var fixture, usersRequestHandler;
 
     beforeEach(inject(function(_fixtureUsers_) {
       fixture = _fixtureUsers_;
+      usersRequestHandler = $httpBackend.when('GET',
+        Config.serverUrl + '/users').respond(fixture);
     }));
-
-    beforeEach(function() {
-      var usersRequestHandler = $httpBackend.when('GET',
-        Config.serverUrl + '/users').respond({});
-    });
 
     it('should make the call to /users api', function() {
       $httpBackend.expectGET(Config.serverUrl + '/users');
@@ -43,6 +40,25 @@ describe('UsersFactory', function() {
 
     it('should load user fixture', function() {
       expect(fixture[0].email).toEqual('admin@torbit.com');
+    });
+
+    it('should invoke success fn', function() {
+      var successFn = jasmine.createSpy();
+      $httpBackend.expectGET(Config.serverUrl + '/users');
+      Factory.getUsers(successFn);
+      $httpBackend.flush();
+      expect(successFn).toHaveBeenCalled();
+    });
+
+    it('should invoke error fn', function() {
+      usersRequestHandler.respond(500);
+      var successFn = jasmine.createSpy();
+      var errorFn = jasmine.createSpy();
+      $httpBackend.expectGET(Config.serverUrl + '/users');
+      Factory.getUsers(successFn, errorFn);
+      $httpBackend.flush();
+      expect(successFn).not.toHaveBeenCalled();
+      expect(errorFn).toHaveBeenCalled();
     });
 
   });

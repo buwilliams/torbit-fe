@@ -4,13 +4,13 @@ app.factory('UsersFactory', function($http, Config, $u) {
   var factory = {};
 
   factory.data = {
-    'users': undefined
+    'users': []
   };
 
   factory.getUsers = function(successFn, errorFn) {
     $http.get(Config.serverUrl + '/users')
       .then(function(httpData) {
-        $u.overwrite(factory.data, httpData.data);
+        $u.overwrite(factory.data.users, httpData.data);
         if(!_.isUndefined(successFn)) {
           successFn(httpData.data);
         }
