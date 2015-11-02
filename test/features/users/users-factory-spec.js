@@ -41,9 +41,8 @@ describe('UsersFactory', function() {
       $httpBackend.flush();
     });
 
-    it('should equal true', function() {
+    it('should load user fixture', function() {
       expect(fixture[0].email).toEqual('admin@torbit.com');
-      //expect(true).toEqual(true);
     });
 
   });
