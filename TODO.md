@@ -5,6 +5,7 @@ In-progress
 ---
 
 * CRUD of User Management
+* tests for users factory
 
 Backlog
 ---
@@ -12,9 +13,10 @@ Backlog
 * CRUD of Site Configurations
 * tests for report controller
 * tests for report factory
-* tests for user controller/factory
-* tests for site administrator controller/factory
+* tests for site administrator factory
+* tests for site administrator controller
 * tests for AuthFactory
+* tests for users controller
 * tests transformBody in app.js
 * support SD Admin bootstrap theme in gulpfile build task
 
