@@ -1,0 +1,9 @@
+[
+  {
+    "email":"admin@torbit.com",
+    "password":"torbit",
+    "name":"Torbit Admin",
+    "admin":true,
+    "created":"2015-10-27T21:46:11.316246843Z"
+  }
+]

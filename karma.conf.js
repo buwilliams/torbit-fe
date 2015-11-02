@@ -25,7 +25,8 @@ module.exports = function(config) {
       'app/bower_components/angular-local-storage/dist/angular-local-storage.min.js',
       'app/features/app.js', // must be first
       'app/features/**/*.js',
-      'test/mocks/**/*.js',
+      'test/mock/**/*.js',
+      'test/fixture/**/*.json',
       'test/features/**/*-spec.js'
     ],
 
@@ -36,9 +37,26 @@ module.exports = function(config) {
     ],
 
 
+    plugins: [
+      'karma-chrome-launcher',
+      'karma-jasmine',
+      'karma-phantomjs-launcher',
+      'karma-ng-json2js-preprocessor'
+    ],
+
+
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      'test/fixture/**/*.json': ['ng-json2js']
+    },
+
+
+    ngJson2JsPreprocessor: {
+      // strip this from the file path
+      stripPrefix: 'test/fixture/',
+      // prepend this to the
+      prependPrefix: 'fixture/'
     },
 
 
