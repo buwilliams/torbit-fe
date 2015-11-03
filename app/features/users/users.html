@@ -15,34 +15,79 @@
   </div>
   <div class="panel-body">
     <div class="grid-options">
-      <button ng-click="" class="btn btn-default">
+      <button ng-click="createMode = true;" class="btn btn-default">
         <i class="fa fa-plus-circle"></i> New</button>
-      <button ng-click="getUsers()" class="btn btn-default">
+      <button ng-click="refresh()" class="btn btn-default">
         <i class="fa fa-refresh"></i> Refresh</button>
     </div>
     <div class="table-responsive">
       <table class="table table-bordered table-hover table-striped">
         <thead>
           <tr>
+            <th>Email (*)</th>
+            <th>Password (*)</th>
             <th>Name</th>
-            <th>Email</th>
-            <th>Password</th>
-            <th>Admin?</th>
+            <th>Is Administrator?</th>
             <th>Created On</th>
             <th align="center">Options</th>
           </tr>
         </thead>
         <tbody>
+          <tr ng-show="createMode">
+            <td>
+              <span><input class="form-control" ng-model="newUser.email" /></span>
+            </td>
+            <td>
+              <span><input class="form-control" ng-model="newUser.password"
+                type="password"/></span>
+            </td>
+            <td>
+              <span><input class="form-control" ng-model="newUser.name" /></span>
+            </td>
+            <td>
+              <select class="form-control" ng-model="newUser.admin"
+                ng-options="boolToStr(item) for item in [true, false]">
+              </select>
+            </td>
+            <td>&nbsp;</td>
+            <td align="center">
+              <a href="javascript:void(0);" ng-click="createUser();">
+                <i class="fa fa-floppy-o"></i> Save
+              </a>
+              <a href="javascript:void(0);" ng-click="createMode = false">
+                <i class="fa fa-ban"></i> Cancel
+            </td>
+          </tr>
           <tr ng-repeat="user in users">
-            <td>{{ user.name }}</td>
-            <td>{{ user.email }}</td>
-            <td>[hidden]</td>
-            <td>{{ user.admin }}</td>
+            <td>
+              <span ng-hide="editMode">{{ user.email }}</span>
+              <span ng-show="editMode"><input class="form-control" ng-model="user.email" /></span>
+            </td>
+            <td>
+              <span ng-hide="editMode">[hidden]</span>
+              <span ng-show="editMode"><input class="form-control" ng-model="user.password"
+                type="password"/></span>
+            </td>
+            <td>
+              <span ng-hide="editMode">{{ user.name }}</span>
+              <span ng-show="editMode"><input class="form-control" ng-model="user.name" /></span>
+            </td>
+            <td>
+              <span ng-hide="editMode">{{ user.admin }}</span>
+              <select class="form-control" ng-show="editMode" ng-model="user.admin"
+                ng-options="boolToStr(item) for item in [true, false]">
+              </select>
+            </td>
             <td>{{ user.created }}</td>
             <td align="center">
-              <a href="javascript:void(0);" ng-click="">
+              <a ng-hide="editMode" href="javascript:void(0);"
+                ng-click="editMode = true">
                 <i class="fa fa-pencil"></i> Edit
+              <a ng-show="editMode" href="javascript:void(0);" ng-click="">
+                <i class="fa fa-floppy-o"></i> Save
               </a>
+              <a ng-show="editMode" href="javascript:void(0);" ng-click="editMode = false">
+                <i class="fa fa-ban"></i> Cancel
             </td>
           </tr>
         </tbody>
