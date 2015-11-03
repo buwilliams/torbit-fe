@@ -30,3 +30,8 @@ The application consists of three main parts:
 1. Foundation - project layout/organization (by feature) and build script (gulpfile.js)
 1. Testing Framework - Karma with Jasmine
 1. Features (Sign-on, Charts, User Management, and Site Configuration)
+
+Project Tracking
+---
+
+You can view the progress at the [TODO.md](https://github.com/buwilliams/torbit-fe/blob/master/TODO.md) page.
