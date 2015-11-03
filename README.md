@@ -34,4 +34,4 @@ The application consists of three main parts:
 Project Tracking
 ---
 
-You can view the progress at the [TODO.md](https://github.com/buwilliams/torbit-fe/blob/master/TODO.md) page.
+You can view the progress on the [TODO.md](https://github.com/buwilliams/torbit-fe/blob/master/TODO.md) page.
