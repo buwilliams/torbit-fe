@@ -35,11 +35,15 @@
         <tbody>
           <tr ng-show="createMode">
             <td>
-              <span><input class="form-control" ng-model="newUser.email" /></span>
+              <span>
+                <input class="form-control" type="email" ng-model="newUser.email" required />
+              </span>
             </td>
             <td>
-              <span><input class="form-control" ng-model="newUser.password"
-                type="password"/></span>
+              <span>
+                <input class="form-control" ng-model="newUser.password"
+                type="password" required/>
+              </span>
             </td>
             <td>
               <span><input class="form-control" ng-model="newUser.name" /></span>
@@ -51,26 +55,39 @@
             </td>
             <td>&nbsp;</td>
             <td align="center">
-              <a href="javascript:void(0);" ng-click="createUser();">
+              <a href="javascript:void(0);"
+                class="align-middle space-right"
+                ng-click="createUser();">
                 <i class="fa fa-floppy-o"></i> Save
               </a>
-              <a href="javascript:void(0);" ng-click="createMode = false">
+              <a href="javascript:void(0);"
+                class="align-middle space-right"
+                ng-click="cancelNewUser(); createMode = false">
                 <i class="fa fa-ban"></i> Cancel
+              </a>
             </td>
           </tr>
-          <tr ng-repeat="user in users">
+          <tr ng-repeat="user in users"
+            ng-form="editUser">
             <td>
               <span ng-hide="editMode">{{ user.email }}</span>
-              <span ng-show="editMode"><input class="form-control" ng-model="user.email" /></span>
+              <span class="align-middle" ng-show="editMode">{{ user.email }}</span>
             </td>
             <td>
               <span ng-hide="editMode">[hidden]</span>
-              <span ng-show="editMode"><input class="form-control" ng-model="user.password"
-                type="password"/></span>
+              <span ng-show="editMode"
+                ng-class="{'has-error': editUser.editPassword.$error.required}">
+                <input name="editPassword" class="form-control"
+                  ng-model="user.password" type="password" required="">
+                <label ng-show="editUser.editPassword.$error.required"
+                  class="control-label" for="editPassword">Required</label>
+              </span>
             </td>
             <td>
               <span ng-hide="editMode">{{ user.name }}</span>
-              <span ng-show="editMode"><input class="form-control" ng-model="user.name" /></span>
+              <span ng-show="editMode">
+                <input class="form-control" ng-model="user.name" />
+              </span>
             </td>
             <td>
               <span ng-hide="editMode">{{ user.admin }}</span>
@@ -78,16 +95,34 @@
                 ng-options="boolToStr(item) for item in [true, false]">
               </select>
             </td>
-            <td>{{ user.created }}</td>
+            <td>
+              <span ng-hide="editMode">{{ user.created }}</span>
+              <span class="align-middle" ng-show="editMode">{{ user.created }}</span>
+            </td>
             <td align="center">
-              <a ng-hide="editMode" href="javascript:void(0);"
+              <a ng-hide="editMode"
+                class="space-right"
+                href="javascript:void(0);"
                 ng-click="editMode = true">
                 <i class="fa fa-pencil"></i> Edit
-              <a ng-show="editMode" href="javascript:void(0);" ng-click="">
+              </a>
+              <a ng-hide="editMode"
+                class="space-right"
+                href="javascript:void(0);"
+                ng-click="editMode = true">
+                <i class="fa fa-trash-o"></i> Delete
+              </a>
+              <a ng-show="editMode"
+                class="space-right align-middle"
+                href="javascript:void(0);" ng-click="save(editUser, user);">
                 <i class="fa fa-floppy-o"></i> Save
               </a>
-              <a ng-show="editMode" href="javascript:void(0);" ng-click="editMode = false">
+              <a ng-show="editMode"
+                class="space-right align-middle"
+                href="javascript:void(0);"
+                ng-click="cancel(user); editMode = false">
                 <i class="fa fa-ban"></i> Cancel
+              </a>
             </td>
           </tr>
         </tbody>
