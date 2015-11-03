@@ -19,6 +19,7 @@ Backlog
 * tests for users controller
 * tests transformBody in app.js
 * support SD Admin bootstrap theme in gulpfile build task
+* fix chart going off the screen on smaller browser windows
 
 Done
 ---
@@ -42,3 +43,4 @@ Clean-up and Wishlist
 * automatically source in angular controllers and services as part of `gulp serve`
 * format dates on chart
 * make charts mobile frendly
+* updating the current user should also update the UI

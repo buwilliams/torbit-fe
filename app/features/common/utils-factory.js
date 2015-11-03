@@ -50,6 +50,19 @@ app.factory('$u', function() {
     return ary;
   };
 
+  // Returns a new object with any keys containing
+  // empty strings, nulls, or undefined being removed
+  // Does not mutate the original object
+  factory.rejectEmptyKeys = function(obj) {
+    var out = {};
+    _.each(_.keys(obj), function(key) {
+      if(obj[key] !== null && obj[key] !== '' && obj[key] !== undefined) {
+        out[key] = obj[key];
+      }
+    });
+    return out;
+  };
+
   return factory;
 
 });

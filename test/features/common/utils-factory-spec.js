@@ -103,4 +103,32 @@ describe('$u', function($u) {
     });
   });
 
+  describe('rejectEmptyKeys', function() {
+
+    it('should remove keys with empty string', function() {
+      var obj = { a: '', b: 2 };
+      obj = $u.rejectEmptyKeys(obj);
+      expect(obj).toEqual({ b: 2 });
+    });
+
+    it('should remove keys with a null', function() {
+      var obj = { a: null, b: 3 };
+      obj = $u.rejectEmptyKeys(obj);
+      expect(obj).toEqual({ b: 3 });
+    });
+
+    it('should remove keys with undefined', function() {
+      var obj = { a: undefined, b: 4 };
+      obj = $u.rejectEmptyKeys(obj);
+      expect(obj).toEqual({ b: 4 });
+    });
+
+    it('should remove keys with empty string, null, or undefined', function() {
+      var obj = { a: undefined, b: 5, c: null, d: undefined };
+      obj = $u.rejectEmptyKeys(obj);
+      expect(obj).toEqual({ b: 5 });
+    });
+
+  });
+
 });
