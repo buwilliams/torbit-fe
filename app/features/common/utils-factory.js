@@ -50,6 +50,13 @@ app.factory('$u', function() {
     return ary;
   };
 
+  factory.find = function(ary, searchObj) {
+    var index = _.findIndex(ary, searchObj);
+    if(!_.isUndefined(index)) {
+      return ary[index];
+    }
+  };
+
   // Returns a new object with any keys containing
   // empty strings, nulls, or undefined being removed
   // Does not mutate the original object
