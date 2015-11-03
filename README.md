@@ -22,6 +22,18 @@ To run unit tests:
 
 * From the root project directory run: `karma start`
 
+Features
+---
+
+* Uses the high-quality SB Admin bootstrap theme
+* Unit Tests for Controllers and Services
+* URL Routes using ui.router
+* Authentication and custom request logic to support backend
+* Sign-in/Sign out screen
+* Charts screen to view Time Series Report data
+* User Management screen
+* Site Configuration screen
+
 Architecture
 ---
 
