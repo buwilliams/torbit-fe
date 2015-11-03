@@ -14,12 +14,16 @@
     <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Time Series Report</h3>
   </div>
   <div class="panel-body">
-    <div class="col-xs-1">
-      <input ng-model="days" class="form-control" placeholder="# days (optional)">
+    <div class="clearfix">
+      <div class="col-xs-2">
+        <input ng-model="days" class="form-control" placeholder="number of days (optional)">
+      </div>
+      <div class="col-md-1">
+        <button ng-click="getTimeSeriesChart()" class="btn btn-default">Load Report</button>
+      </div>
     </div>
-    <div class="col-md-1">
-      <button ng-click="getTimeSeriesChart()" class="btn btn-default">Get Report</button>
+    <div>
+      <linechart data="data" options="options" mode="" width="" height=""></linechart>
     </div>
-    <linechart data="data" options="options" mode="" width="2000" height="400"></linechart>
   </div>
 </div>
