@@ -28,6 +28,7 @@ Features
 * Uses the high-quality SB Admin bootstrap theme
 * Unit Tests for Controllers and Services
 * URL Routes using ui.router
+* Production ready build tool using Gulp
 * Authentication and custom request logic to support backend
 * Sign-in/Sign out screen
 * Charts screen to view Time Series Report data
