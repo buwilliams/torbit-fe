@@ -6,6 +6,7 @@ In-progress
 
 * CRUD of User Management
 * tests for users factory
+* validation for email on users table
 
 Backlog
 ---
@@ -20,6 +21,7 @@ Backlog
 * tests transformBody in app.js
 * support SD Admin bootstrap theme in gulpfile build task
 * fix chart going off the screen on smaller browser windows
+* tests to utils-factory find()
 
 Done
 ---
