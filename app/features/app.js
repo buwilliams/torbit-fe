@@ -84,7 +84,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, Config, 
         config.headers['X-User-Id'] = Config.clientId;
 
         // Configures the format used in the body of POST or PUT
-        if(config.method === 'POST' || config.method === 'PUT') {
+        if(config.url === Config.serverUrl + '/login') {
           config.transformRequest.unshift(transformBody);
           config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
         }
