@@ -131,4 +131,14 @@ describe('$u', function($u) {
 
   });
 
+  describe('find', function() {
+
+    it('should find object with id 2', function() {
+      var obj = [{id:1}, {id:2}, {id:3}];
+      var result = $u.find(obj, {id: 2});
+      expect(result).toEqual({id: 2});
+    });
+
+  });
+
 });
