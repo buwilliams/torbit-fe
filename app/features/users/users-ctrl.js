@@ -4,37 +4,44 @@ app.controller('UsersCtrl', function($scope, $u, UsersFactory) {
 
   $scope.users = [];
   $scope.newUser = {};
+  $scope.createMode = { show: false };
+  $scope.message = { errorTitle: '', errorDetails: '' };
 
   $scope.init = function() {
     $scope.refresh();
   };
 
   $scope.save = function(mode, form, user) {
+    $scope.clearMessage();
     if(form.$invalid) { return; } // don't submit form if there are validation errors
     UsersFactory.updateUser(user,
       function(updatedUser) { // success
-        mode = false; // does this work? doesn't appear to
-        var user = $u.find($scope.users, { email: updatedUser.email });
-        if(!_.isUndefined(user)) {
-          $u.overwrite(user, updatedUser);
-        } else {
-          $scope.users.push(updatedUser);
-        }
+        mode.show = false;
+        $scope.users.push(updatedUser);
       },
-      function() { // error
-        alert('unable to save user');
+      function(httpResponse) { // error
+        $scope.setMessage('Server Error', httpResponse.data);
       });
   };
 
   $scope.delete = function(user) {
+    $scope.clearMessage();
     if(!confirm('Are you sure you want to delete '+user.email+'?')) { return; }
     UsersFactory.deleteUser(user.email,
       function() { // success
         $u.remove($scope.users, { email: user.email });
       },
       function() { // error
-        alert('unable to delete user');
+        $scope.setMessage('Server Error', 'Unabled to delete this user.');
       });
+  };
+
+  $scope.refresh = function() {
+    $scope.clearMessage();
+    UsersFactory.getUsers(function() {
+      var clonedUsers = angular.copy(UsersFactory.data.users);
+      $u.overwrite($scope.users, clonedUsers);
+    });
   };
 
   $scope.cancel = function(user) {
@@ -48,15 +55,18 @@ app.controller('UsersCtrl', function($scope, $u, UsersFactory) {
     $u.empty($scope.newUser);
   };
 
-  $scope.refresh = function() {
-    UsersFactory.getUsers(function() {
-      var clonedUsers = angular.copy(UsersFactory.data.users);
-      $u.overwrite($scope.users, clonedUsers);
-    });
-  };
-
   $scope.boolToStr = function(bool) {
     return bool ? 'true' : 'false';
+  };
+
+  $scope.setMessage = function(title, details) {
+    $scope.message.errorTitle = title;
+    $scope.message.errorDetails = details;
+  };
+
+  $scope.clearMessage = function() {
+    $scope.message.errorTitle = '';
+    $scope.message.errorDetails = '';
   };
 
   (function() { $scope.init(); })();
