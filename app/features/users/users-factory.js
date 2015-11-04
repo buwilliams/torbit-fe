@@ -46,6 +46,7 @@ app.factory('UsersFactory', function($http, Config, $u) {
     var params = { 'email': email };
     $http.delete(Config.serverUrl + '/user', { params: params })
       .then(function(httpData) {
+        $u.remove(factory.data.users, { email: email });
         if(!_.isUndefined(successFn)) {
           successFn(httpData.data);
         }

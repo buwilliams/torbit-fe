@@ -10,6 +10,7 @@ describe('UsersFactory', function() {
 
   // Users Fixture
   beforeEach(module('fixture/users.json'));
+  beforeEach(module('fixture/createUser.json'));
 
   beforeEach(inject(function($injector) {
     Config = $injector.get('Config');
@@ -65,12 +66,14 @@ describe('UsersFactory', function() {
 
   describe('updateUser', function() {
 
-    var fixture, userRequestHandler;
+    var fixtureUsers, fixtureCreateUser, userRequestHandler;
 
-    beforeEach(inject(function(_fixtureUsers_) {
-      fixture = _fixtureUsers_;
+    beforeEach(inject(function(_fixtureUsers_, _fixtureCreateUser_) {
+      Factory.data.users = [];
+      fixtureUsers = _fixtureUsers_;
+      fixtureCreateUser = _fixtureCreateUser_;
       userRequestHandler = $httpBackend.when('POST',
-        Config.serverUrl + '/user').respond(fixture);
+        Config.serverUrl + '/user').respond(fixtureUsers);
     }));
 
     it('should make the call to /user api as POST', function() {
@@ -98,16 +101,36 @@ describe('UsersFactory', function() {
       expect(errorFn).toHaveBeenCalled();
     });
 
+    it('should create the user in the factory on success', function() {
+      userRequestHandler.respond(200, fixtureCreateUser);
+      $httpBackend.expectPOST(Config.serverUrl + '/user');
+      Factory.updateUser({});
+      $httpBackend.flush();
+      expect(Factory.data.users[0].email).toEqual(fixtureCreateUser.email);
+    });
+
+    it('should update the user in the factory on success', function() {
+      var copyFixture = angular.copy(fixtureCreateUser);
+      copyFixture.name = 'Updated Name';
+      Factory.data.users.push(fixtureCreateUser);
+      userRequestHandler.respond(200, copyFixture);
+      $httpBackend.expectPOST(Config.serverUrl + '/user');
+      Factory.updateUser({});
+      $httpBackend.flush();
+      expect(Factory.data.users[0].email).toEqual(copyFixture.email);
+    });
+
   });
 
   describe('deleteUser', function() {
 
-    var fixture, userRequestHandler, emailAddress = 'test@test.com';
+    var fixtureCreateUser, userRequestHandler, emailAddress = 'test@test.com';
 
-    beforeEach(inject(function(_fixtureUsers_) {
-      fixture = _fixtureUsers_;
+    beforeEach(inject(function(_fixtureCreateUser_) {
+      Factory.data.users = [];
+      fixtureCreateUser = _fixtureCreateUser_;
       userRequestHandler = $httpBackend.when('DELETE',
-        Config.serverUrl + '/user?email='+emailAddress).respond(fixture);
+        Config.serverUrl + '/user?email='+emailAddress).respond(fixtureCreateUser);
     }));
 
     it('should make the call to /user api as DELETE', function() {
@@ -133,6 +156,16 @@ describe('UsersFactory', function() {
       $httpBackend.flush();
       expect(successFn).not.toHaveBeenCalled();
       expect(errorFn).toHaveBeenCalled();
+    });
+
+    it('should remove the user from the factory data', function() {
+      var copiedUser = angular.copy(fixtureCreateUser);
+      copiedUser.email = emailAddress;
+      Factory.data.users.push(copiedUser);
+      $httpBackend.expectDELETE(Config.serverUrl + '/user?email='+emailAddress);
+      Factory.deleteUser(copiedUser.email);
+      $httpBackend.flush();
+      expect(Factory.data.users.length).toEqual(0);
     });
 
   });
