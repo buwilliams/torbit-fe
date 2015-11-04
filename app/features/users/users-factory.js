@@ -3,7 +3,6 @@ var app = angular.module('torbitFeApp');
 app.factory('UsersFactory', function($http, Config, $u) {
   var factory = {};
 
-  // TODO: do we need this at all?
   factory.data = {
     'users': []
   };

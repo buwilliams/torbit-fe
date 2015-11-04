@@ -4,9 +4,8 @@ TODO
 In-progress
 ---
 
-* CRUD of User Management
+* tests for users controller
 * tests for users factory
-* validation for email on users table
 
 Backlog
 ---
@@ -20,7 +19,6 @@ Backlog
 * tests for users controller
 * tests transformBody in app.js
 * support SD Admin bootstrap theme in gulpfile build task
-* fix chart going off the screen on smaller browser windows
 * tests to utils-factory find()
 
 Done
@@ -37,6 +35,9 @@ Done
 * add localStorage for sign-on
 * make ui menu understand signed-in/signed-out
 * fixed broken tests caused by ui.router and $u throws
+* CRUD of User Management
+* validation for email on users table
+* fix chart going off the screen on smaller browser windows
 
 Clean-up and Wishlist
 ---
