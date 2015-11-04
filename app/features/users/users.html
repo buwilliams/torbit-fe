@@ -24,8 +24,8 @@
       <table class="table table-bordered table-hover table-striped">
         <thead>
           <tr>
-            <th>Email (*)</th>
-            <th>Password (*)</th>
+            <th>Email<span class="text-danger">*</span></th>
+            <th>Password<span class="text-danger">*</span></th>
             <th>Name</th>
             <th>Is Administrator?</th>
             <th>Created On</th>
@@ -33,16 +33,23 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-show="createMode">
+          <tr ng-show="createMode" ng-form="createUser">
             <td>
-              <span>
-                <input class="form-control" type="email" ng-model="newUser.email" required />
+              <span ng-class="{'has-error': createUser.createEmail.$invalid}">
+                <input class="form-control" type="email" name="createEmail"
+                  ng-model="newUser.email" required="">
+                <label ng-show="createUser.createEmail.$error.required"
+                  class="control-label" for="createEmail">Required</label>
+                <label ng-show="createUser.createEmail.$error.email"
+                  class="control-label" for="createEmail">This is not a valid email.</label>
               </span>
             </td>
             <td>
-              <span>
+              <span ng-class="{'has-error': createUser.createPassword.$error.required}">
                 <input class="form-control" ng-model="newUser.password"
-                type="password" required/>
+                  name="createPassword" type="password" required="">
+                <label ng-show="createUser.createPassword.$error.required"
+                  class="control-label" for="createEmail">Required</label>
               </span>
             </td>
             <td>
