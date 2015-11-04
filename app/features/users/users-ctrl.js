@@ -9,19 +9,37 @@ app.controller('UsersCtrl', function($scope, $u, UsersFactory) {
     $scope.refresh();
   };
 
-  $scope.save = function(form, row) {
+  $scope.save = function(mode, form, user) {
     if(form.$invalid) { return; } // don't submit form if there are validation errors
-    console.log('form submitted', form.$error, form, row);
-    return;
-    //UsersFactory.updateUser(row);
+    UsersFactory.updateUser(user,
+      function(updatedUser) { // success
+        mode = false; // does this work? doesn't appear to
+        var user = $u.find($scope.users, { email: updatedUser.email });
+        if(!_.isUndefined(user)) {
+          $u.overwrite(user, updatedUser);
+        } else {
+          $scope.users.push(updatedUser);
+        }
+      },
+      function() { // error
+        alert('unable to save user');
+      });
   };
 
-  $scope.cancel = function(row) {
-    var originalRow = $u.find(UsersFactory.data.users, { email: row.email });
+  $scope.delete = function(user) {
+    UsersFactory.deleteUser(user.email,
+      function() { // success
+        $u.remove($scope.users, { email: user.email });
+      },
+      function() { // error
+        alert('unable to delete user');
+      });
+  };
+
+  $scope.cancel = function(user) {
+    var originalRow = $u.find(UsersFactory.data.users, { email: user.email });
     if(!_.isUndefined(originalRow)) {
-      $u.overwrite(row, originalRow);
-    } else {
-      // email wasn't found so assume the email address was changed
+      $u.overwrite(user, originalRow);
     }
   };
 

@@ -33,22 +33,22 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-show="createMode" ng-form="createUser">
+          <tr ng-show="createMode" ng-form="createUserForm">
             <td>
-              <span ng-class="{'has-error': createUser.createEmail.$invalid}">
+              <span ng-class="{'has-error': createUserForm.createEmail.$invalid}">
                 <input class="form-control" type="email" name="createEmail"
                   ng-model="newUser.email" required="">
-                <label ng-show="createUser.createEmail.$error.required"
+                <label ng-show="createUserForm.createEmail.$error.required"
                   class="control-label" for="createEmail">Required</label>
-                <label ng-show="createUser.createEmail.$error.email"
+                <label ng-show="createUserForm.createEmail.$error.email"
                   class="control-label" for="createEmail">This is not a valid email.</label>
               </span>
             </td>
             <td>
-              <span ng-class="{'has-error': createUser.createPassword.$error.required}">
+              <span ng-class="{'has-error': createUserForm.createPassword.$error.required}">
                 <input class="form-control" ng-model="newUser.password"
                   name="createPassword" type="password" required="">
-                <label ng-show="createUser.createPassword.$error.required"
+                <label ng-show="createUserForm.createPassword.$error.required"
                   class="control-label" for="createEmail">Required</label>
               </span>
             </td>
@@ -64,7 +64,7 @@
             <td align="center">
               <a href="javascript:void(0);"
                 class="align-middle space-right"
-                ng-click="createUser();">
+                ng-click="save(createMode, createUserForm, newUser);">
                 <i class="fa fa-floppy-o"></i> Save
               </a>
               <a href="javascript:void(0);"
@@ -74,8 +74,7 @@
               </a>
             </td>
           </tr>
-          <tr ng-repeat="user in users"
-            ng-form="editUser">
+          <tr ng-repeat="user in users" ng-form="editUserForm">
             <td>
               <span ng-hide="editMode">{{ user.email }}</span>
               <span class="align-middle" ng-show="editMode">{{ user.email }}</span>
@@ -83,10 +82,10 @@
             <td>
               <span ng-hide="editMode">[hidden]</span>
               <span ng-show="editMode"
-                ng-class="{'has-error': editUser.editPassword.$error.required}">
+                ng-class="{'has-error': editUserForm.editPassword.$error.required}">
                 <input name="editPassword" class="form-control"
                   ng-model="user.password" type="password" required="">
-                <label ng-show="editUser.editPassword.$error.required"
+                <label ng-show="editUserForm.editPassword.$error.required"
                   class="control-label" for="editPassword">Required</label>
               </span>
             </td>
@@ -116,12 +115,12 @@
               <a ng-hide="editMode"
                 class="space-right"
                 href="javascript:void(0);"
-                ng-click="editMode = true">
+                ng-click="delete(user);">
                 <i class="fa fa-trash-o"></i> Delete
               </a>
               <a ng-show="editMode"
                 class="space-right align-middle"
-                href="javascript:void(0);" ng-click="save(editUser, user);">
+                href="javascript:void(0);" ng-click="save(editMode, editUserForm, user);">
                 <i class="fa fa-floppy-o"></i> Save
               </a>
               <a ng-show="editMode"

@@ -3,6 +3,7 @@ var app = angular.module('torbitFeApp');
 app.factory('UsersFactory', function($http, Config, $u) {
   var factory = {};
 
+  // TODO: do we need this at all?
   factory.data = {
     'users': []
   };
@@ -16,7 +17,7 @@ app.factory('UsersFactory', function($http, Config, $u) {
           successFn(httpData.data);
         }
       }, function(httpData) {
-        if(!_.isUndefined(successFn)) {
+        if(!_.isUndefined(errorFn)) {
           errorFn(httpData);
         }
       });
@@ -26,6 +27,12 @@ app.factory('UsersFactory', function($http, Config, $u) {
   factory.updateUser = function(user, successFn, errorFn) {
     $http.post(Config.serverUrl + '/user', user)
       .then(function(httpData) {
+        var user = $u.find(factory.data.users, { email: httpData.data.email });
+        if(!_.isUndefined(user)) {
+          $u.overwrite(user, httpData.data);
+        } else {
+          factory.data.users.push(httpData.data);
+        }
         if(!_.isUndefined(successFn)) {
           successFn(httpData.data);
         }
@@ -37,9 +44,7 @@ app.factory('UsersFactory', function($http, Config, $u) {
   };
 
   factory.deleteUser = function(email, successFn, errorFn) {
-    var params = {
-      email: email
-    };
+    var params = { 'email': email };
     $http.delete(Config.serverUrl + '/user', { params: params })
       .then(function(httpData) {
         if(!_.isUndefined(successFn)) {
