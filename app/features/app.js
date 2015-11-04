@@ -83,7 +83,8 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, Config, 
         // server can know which client application is calling it
         config.headers['X-User-Id'] = Config.clientId;
 
-        // Configures the format used in the body of POST or PUT
+        // Configures the format used in the body for authentication
+        // since the backend requires a different format
         if(config.url === Config.serverUrl + '/login') {
           config.transformRequest.unshift(transformBody);
           config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
