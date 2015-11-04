@@ -27,6 +27,7 @@ app.controller('UsersCtrl', function($scope, $u, UsersFactory) {
   };
 
   $scope.delete = function(user) {
+    if(!confirm('Are you sure you want to delete '+user.email+'?')) { return; }
     UsersFactory.deleteUser(user.email,
       function() { // success
         $u.remove($scope.users, { email: user.email });

@@ -17,7 +17,7 @@
     <div class="grid-options">
       <button ng-click="createMode = true;" class="btn btn-default">
         <i class="fa fa-plus-circle"></i> New</button>
-      <button ng-click="refresh()" class="btn btn-default">
+      <button ng-click="createMode = false; refresh()" class="btn btn-default">
         <i class="fa fa-refresh"></i> Refresh</button>
     </div>
     <div class="table-responsive">
@@ -74,7 +74,7 @@
               </a>
             </td>
           </tr>
-          <tr ng-repeat="user in users" ng-form="editUserForm">
+          <tr ng-repeat="user in users | orderBy:'email'" ng-form="editUserForm">
             <td>
               <span ng-hide="editMode">{{ user.email }}</span>
               <span class="align-middle" ng-show="editMode">{{ user.email }}</span>
