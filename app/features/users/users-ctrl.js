@@ -11,29 +11,36 @@ app.controller('UsersCtrl', function($scope, $u, UsersFactory) {
     $scope.refresh();
   };
 
-  $scope.save = function(mode, form, user) {
-    $scope.clearMessage();
+  $scope.save = function(form, user) {
     if(form.$invalid) { return; } // don't submit form if there are validation errors
-    UsersFactory.updateUser(user,
-      function(updatedUser) { // success
-        mode.show = false;
-        $scope.users.push(updatedUser);
-      },
-      function(httpResponse) { // error
-        $scope.setMessage('Server Error', httpResponse.data);
-      });
+    $scope.clearMessage();
+    UsersFactory.updateUser(user, $scope.saveSuccess, $scope.saveError);
+  };
+
+  $scope.saveSuccess = function(updatedUser) {
+    $scope.createMode.show = false;
+    $scope.users.push(updatedUser);
+  };
+
+  $scope.saveError = function(httpResponse) {
+    $scope.setMessage('Server Error', httpResponse.data);
   };
 
   $scope.delete = function(user) {
+    if(!$scope.getConfirmation('Are you sure you want to delete '+user.email+'?')) { return; }
     $scope.clearMessage();
-    if(!confirm('Are you sure you want to delete '+user.email+'?')) { return; }
     UsersFactory.deleteUser(user.email,
       function() { // success
-        $u.remove($scope.users, { email: user.email });
-      },
-      function() { // error
-        $scope.setMessage('Server Error', 'Unabled to delete this user.');
-      });
+        $scope.deleteSuccess(user.email);
+      }, $scope.deleteError);
+  };
+
+  $scope.deleteSuccess = function(email) {
+    $u.remove($scope.users, { email: email });
+  };
+
+  $scope.deleteError = function(httpResponse) {
+    $scope.setMessage('Server Error', httpResponse.data);
   };
 
   $scope.refresh = function() {
@@ -67,6 +74,12 @@ app.controller('UsersCtrl', function($scope, $u, UsersFactory) {
   $scope.clearMessage = function() {
     $scope.message.errorTitle = '';
     $scope.message.errorDetails = '';
+  };
+
+  // Put into it's own function so that it's mockable
+  // in our unit tests
+  $scope.getConfirmation = function(message) {
+    return confirm(message);
   };
 
   (function() { $scope.init(); })();
