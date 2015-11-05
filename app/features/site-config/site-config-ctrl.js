@@ -12,6 +12,10 @@ app.controller('SiteConfigCtrl', function($scope, $u, $state, SiteConfigFactory)
     $scope.refresh();
   };
 
+  $scope.showEdit = function(config) {
+    $state.go('wrapper.editor', {'configId': config.id });
+  };
+
   $scope.save = function(form, config) {
     if(form.$invalid) { return; } // don't submit form if there are validation errors
     $scope.clearMessage();

@@ -4,7 +4,28 @@ app.factory('SiteConfigFactory', function($http, $u, Config) {
   var factory = {};
 
   factory.data = {
-    configs: []
+    configs: [],
+    defaultConfig: {
+      "domain": "",
+      "scripts": [],
+      "redirects": {},
+      "rewriterule": {}
+    }
+  };
+
+  // TODO: before getConfig() can be used, the configs[] need
+  // to be loaded
+
+  factory.getConfig = function(id) {
+    if(id === 'new') {
+      return factory.data.defaultConfig;
+    } else {
+      var config = $u.find(factory.data.configs, { id: id });
+      if(_.isUndefined(config)) {
+        throw('Unable to find config.');
+      }
+      return config;
+    }
   };
 
   factory.getConfigs = function(successFn, errorFn) {
@@ -22,14 +43,14 @@ app.factory('SiteConfigFactory', function($http, $u, Config) {
   };
 
   factory.createConfig = function(config, successFn, errorFn) {
-    $http.put(Config.serverUrl + '/config', config)
+    $http.post(Config.serverUrl + '/config', config)
       .then(function(httpData) {
         factory.data.configs.push(httpData.data);
         if(!_.isUndefined(successFn)) {
           successFn(httpData.data);
         }
       }, function(httpData) {
-        if(!_.isUndefined(successFn)) {
+        if(!_.isUndefined(errorFn)) {
           errorFn(httpData);
         }
       });
@@ -40,14 +61,14 @@ app.factory('SiteConfigFactory', function($http, $u, Config) {
     if(_.isUndefined(config)) {
       throw('Unable to find existing config to update.');
     }
-    $http.post(Config.serverUrl + '/config', config)
+    $http.put(Config.serverUrl + '/config', config)
       .then(function(httpData) {
         $u.overwrite(originalConfig, httpData.data);
         if(!_.isUndefined(successFn)) {
           successFn(httpData.data);
         }
       }, function(httpData) {
-        if(!_.isUndefined(successFn)) {
+        if(!_.isUndefined(errorFn)) {
           errorFn(httpData);
         }
       });
@@ -62,10 +83,88 @@ app.factory('SiteConfigFactory', function($http, $u, Config) {
           successFn(httpData.data);
         }
       }, function(httpData) {
-        if(!_.isUndefined(successFn)) {
+        if(!_.isUndefined(errorFn)) {
           errorFn(httpData);
         }
       });
+  };
+
+  factory.configToAngular = function(config) {
+    var result = {
+      domain: '',
+      scripts: [],
+      redirects: [],
+      rewriterule: []
+    };
+
+    // id and domain
+    if(!_.isUndefined(config.id)) { // id is optional
+      result.id = config.id;
+    }
+    result.domain = config.domain;
+
+    // scripts to object array
+    _.each(config.scripts, function(script) {
+      result.scripts.push({
+        'value': script
+      });
+    });
+
+    // redirects to array
+    _.each(_.keys(config.redirects), function(key) {
+      result.redirects.push({
+        'key': key,
+        'value': config.redirects[key]
+      });
+    });
+
+    // rewriterules to array and flatten
+    _.each(_.keys(config.rewriterule), function(key) {
+      _.each(_.keys(config.rewriterule[key]), function(ruleKey) {
+        result.rewriterule.push({
+          'key': key,
+          'ruleKey': ruleKey,
+          'ruleValue': config.rewriterule[key][ruleKey]
+        });
+      });
+    });
+
+    return result;
+  };
+
+  factory.angularToConfig = function(ngConf) {
+    var result = {
+      domain: '',
+      scripts: [],
+      redirects: {},
+      rewriterule: {}
+    };
+
+    // id and domain
+    if(!_.isUndefined(ngConf.id)) { // id is optional
+      result.id = ngConf.id;
+    }
+    result.domain = ngConf.domain;
+
+    // scripts to plain array
+    _.each(ngConf.scripts, function(script) {
+      result.scripts.push(script.value);
+    });
+
+    // expand redirects
+    _.each(ngConf.redirects, function(redirect) {
+      result.redirects[redirect.key] = redirect.value;
+    });
+
+    // expand rewriterules
+    _.each(ngConf.rewriterule, function(rewriterule) {
+      if(_.isUndefined(result.rewriterule[rewriterule.key])) {
+        result.rewriterule[rewriterule.key] = {};
+      }
+      result.rewriterule[rewriterule.key][rewriterule.ruleKey] = rewriterule.ruleValue;
+    });
+
+    return result;
   };
 
   return factory;

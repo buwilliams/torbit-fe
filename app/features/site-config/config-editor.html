@@ -15,9 +15,9 @@
   </div>
   <div class="panel-body">
     <div class="grid-options">
-      <button ng-click="createMode.show = true;" class="btn btn-default">
+      <button ng-click="save()" class="btn btn-default">
         <i class="fa fa-plus-circle"></i> Save</button>
-      <button ng-click="createMode.show = false; refresh()" class="btn btn-default">
+      <button ng-click="cancel()" class="btn btn-default">
         <i class="fa fa-ban"></i> Cancel</button>
     </div>
     <div ng-show="message.errorTitle !== ''" class="alert alert-danger">
@@ -34,7 +34,7 @@
             <h3 class="panel-title">Domain</h3>
           </div>
           <div class="panel-body">
-            site config name goes here
+            <input class="form-control" ng-model="config.domain" required="">
           </div>
         </div><!-- /panel -->
         <div class="panel panel-info">
@@ -42,50 +42,149 @@
             <h3 class="panel-title">Scripts</h3>
           </div>
           <div class="panel-body">
-            scripts go here
-          </div>
-        </div><!-- /panel -->
-        <div class="panel panel-info">
-          <div class="panel-heading">
-            <h3 class="panel-title">Rewrite Rules</h3>
-          </div>
-          <div class="panel-body">
-            <div class="col-lg-6">
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h3 class="panel-title">Rule</h3>
-                </div>
-                <div class="panel-body">
-                  rule stuff here
-                </div>
-              </div><!-- /panel -->
-            </div><!-- /col-lg-6 -->
-            <div class="col-lg-6">
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h3 class="panel-title">Settings</h3>
-                </div>
-                <div class="panel-body">
-                  rule stuff here
-                </div>
-              </div><!-- /panel -->
-            </div><!-- /col-lg-6 -->
-          </div>
+            <div>
+              <a href="javascript:void(0);"
+                class="align-middle space-right"
+                ng-click="addScript()">
+                <i class="fa fa-plus-circle"></i> Add Script
+              </a>
+            </div>
+            <table class="table table-bordered table-hover table-striped">
+              <thead>
+                <tr>
+                  <th>Script</th>
+                  <th>Options</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-show="config.scripts.length == 0">
+                  <td colspan="2">No scripts to display.</td>
+                </tr>
+                <tr ng-repeat="item in config.scripts track by $index | orderBy:'value'">
+                  <td>
+                    <input class="form-control"
+                      ng-model="item.value"
+                      required="">
+                  </td>
+                  <td>
+                    <a href="javascript:void(0);"
+                      class="align-middle space-right"
+                      ng-click="removeScript($index)">
+                      <i class="fa fa-ban"></i> Delete
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div><!-- /panel-body -->
         </div><!-- /panel -->
         <div class="panel panel-info">
           <div class="panel-heading">
             <h3 class="panel-title">Redirects</h3>
           </div>
           <div class="panel-body">
-            redirects go here
+            <div>
+              <a href="javascript:void(0);"
+                class="align-middle space-right"
+                ng-click="addRedirect()">
+                <i class="fa fa-plus-circle"></i> Add Redirect
+              </a>
+            </div>
+            <table class="table table-bordered table-hover table-striped">
+              <thead>
+                <tr>
+                  <th>Redirect</th>
+                  <th>Value</th>
+                  <th>Options</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-show="config.redirects.length == 0">
+                  <td colspan="3">No redirects to display.</td>
+                </tr>
+                <tr ng-repeat="item in config.redirects track by $index | orderBy:'key'">
+                  <td>
+                    <input class="form-control"
+                      ng-model="item.key"
+                      required="">
+                  </td>
+                  <td>
+                    <input class="form-control"
+                      ng-model="item.value"
+                      required="">
+                  </td>
+                  <td>
+                    <a href="javascript:void(0);"
+                      class="align-middle space-right"
+                      ng-click="removeRedirect($index)">
+                      <i class="fa fa-ban"></i> Delete
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div><!-- /panel-body -->
+        </div><!-- /panel -->
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">Rewrite Rules</h3>
           </div>
+          <div class="panel-body">
+            <div>
+              <a href="javascript:void(0);"
+                class="align-middle space-right"
+                ng-click="addRewriteRule()">
+                <i class="fa fa-plus-circle"></i> Add Rewrite Rule
+              </a>
+            </div>
+            <table class="table table-bordered table-hover table-striped">
+              <thead>
+                <tr>
+                  <th>Rewrite Rule</th>
+                  <th>Key</th>
+                  <th>Value</th>
+                  <th>Options</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-show="config.rewriterule.length == 0">
+                  <td colspan="4">No rewrite rules to display.</td>
+                </tr>
+                <tr ng-repeat="item in config.rewriterule track by $index |
+                  orderBy:['key', 'ruleKey']">
+                  <td>
+                    <input class="form-control"
+                      ng-model="item.key"
+                      required="">
+                  </td>
+                  <td>
+                    <input class="form-control"
+                      ng-model="item.ruleKey"
+                      required="">
+                  </td>
+                  <td>
+                    <input class="form-control"
+                      ng-model="item.ruleValue"
+                      required="">
+                  </td>
+                  <td>
+                    <a href="javascript:void(0);"
+                      class="align-middle space-right"
+                      ng-click="removeRewriteRule($index)">
+                      <i class="fa fa-ban"></i> Delete
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div><!-- /panel-body -->
         </div><!-- /panel -->
       </div><!-- /col-lg-12 -->
     </div><!-- /row -->
     <div class="grid-options">
-      <button ng-click="createMode.show = true;" class="btn btn-default">
+      <button ng-click="save()" class="btn btn-default">
         <i class="fa fa-plus-circle"></i> Save</button>
-      <button ng-click="createMode.show = false; refresh()" class="btn btn-default">
+      <button ng-click="cancel()" class="btn btn-default">
         <i class="fa fa-ban"></i> Cancel</button>
     </div>
   </div><!-- /panel-body -->
