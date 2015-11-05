@@ -4,13 +4,13 @@ TODO
 In-progress
 ---
 
-* tests for users controller
-* tests for users factory
+* CRUD of Site Configurations
 
 Backlog
 ---
 
-* CRUD of Site Configurations
+* tests for users controller
+* tests for users factory
 * tests for report controller
 * tests for report factory
 * tests for site administrator factory
