@@ -12,29 +12,18 @@ app.controller('SiteConfigCtrl', function($scope, $u, $state, SiteConfigFactory)
     $scope.refresh();
   };
 
+  $scope.showNew = function() {
+    $state.go('wrapper.editor', {'configId': 'new'});
+  };
+
   $scope.showEdit = function(config) {
     $state.go('wrapper.editor', {'configId': config.id });
   };
 
-  $scope.save = function(form, config) {
-    if(form.$invalid) { return; } // don't submit form if there are validation errors
-    $scope.clearMessage();
-    SiteConfigFactory.updateConfig(config, $scope.saveSuccess, $scope.saveError);
-  };
-
-  $scope.saveSuccess = function(updatedConfig) {
-    $scope.createMode.show = false;
-    $scope.configs.push(updatedConfig);
-  };
-
-  $scope.saveError = function(httpResponse) {
-    $scope.setMessage('Server Error', httpResponse.data);
-  };
-
   $scope.delete = function(config) {
-    if(!$scope.getConfirmation('Are you sure you want to this config?')) { return; }
+    if(!$scope.getConfirmation('Are you sure you want to delete '+config.domain+'?')) { return; }
     $scope.clearMessage();
-    Config.deleteConfig(config.id,
+    SiteConfigFactory.deleteConfig(config.id,
       function() { // success
         $scope.deleteSuccess(config.id);
       }, $scope.deleteError);
@@ -45,7 +34,7 @@ app.controller('SiteConfigCtrl', function($scope, $u, $state, SiteConfigFactory)
   };
 
   $scope.deleteError = function(httpResponse) {
-    $scope.setMessage('Server Error', httpResponse.data);
+    $scope.setMessage('Delete Error', httpResponse.data);
   };
 
   $scope.refresh = function() {
@@ -54,17 +43,6 @@ app.controller('SiteConfigCtrl', function($scope, $u, $state, SiteConfigFactory)
       var clonedConfigs = angular.copy(SiteConfigFactory.data.configs);
       $u.overwrite($scope.configs, clonedConfigs);
     });
-  };
-
-  $scope.cancel = function(config) {
-    var originalRow = $u.find(SiteConfigFactory.data.configs, { id: config.id });
-    if(!_.isUndefined(originalRow)) {
-      $u.overwrite(config, originalRow);
-    }
-  };
-
-  $scope.cancelNewConfig = function() {
-    $u.empty($scope.newConfig);
   };
 
   $scope.setMessage = function(title, details) {
@@ -81,10 +59,6 @@ app.controller('SiteConfigCtrl', function($scope, $u, $state, SiteConfigFactory)
   // in our unit tests
   $scope.getConfirmation = function(message) {
     return confirm(message);
-  };
-
-  $scope.createConfig = function() {
-    $state.go('wrapper.editor', {'configId': 'new'});
   };
 
   (function() { $scope.init(); })();
