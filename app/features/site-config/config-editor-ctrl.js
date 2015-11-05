@@ -8,6 +8,10 @@ app.controller('ConfigEditorCtrl', function($scope, $u, $state, SiteConfigFactor
   $scope.init = function() {
     var id = $state.params.configId;
     var config = SiteConfigFactory.getConfig(id);
+    if(_.isUndefined(config)) {
+      $state.go('wrapper.config');
+      return;
+    }
     var angularConfig = SiteConfigFactory.configToAngular(config);
     $u.overwrite($scope.config, angularConfig);
   };

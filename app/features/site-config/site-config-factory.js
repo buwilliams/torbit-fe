@@ -13,17 +13,12 @@ app.factory('SiteConfigFactory', function($http, $u, Config) {
     }
   };
 
-  // TODO: before getConfig() can be used, the configs[] need
-  // to be loaded
-
   factory.getConfig = function(id) {
+
     if(id === 'new') {
       return factory.data.defaultConfig;
     } else {
       var config = $u.find(factory.data.configs, { id: id });
-      if(_.isUndefined(config)) {
-        throw('Unable to find config.');
-      }
       return config;
     }
   };
