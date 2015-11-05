@@ -4,22 +4,19 @@ TODO
 In-progress
 ---
 
-* CRUD of Site Configurations
+* support SD Admin bootstrap theme in gulpfile build task
 
 Backlog
 ---
 
-* tests for users controller
-* tests for users factory
 * tests for report controller
 * tests for report factory
 * tests for site administrator factory
 * tests for site administrator controller
 * tests for AuthFactory
-* tests for users controller
 * tests transformBody in app.js
-* support SD Admin bootstrap theme in gulpfile build task
 * tests to utils-factory find()
+* angular validation on config editor
 
 Done
 ---
@@ -36,8 +33,11 @@ Done
 * make ui menu understand signed-in/signed-out
 * fixed broken tests caused by ui.router and $u throws
 * CRUD of User Management
+* tests for users controller
+* tests for users factory
 * validation for email on users table
 * fix chart going off the screen on smaller browser windows
+* CRUD of Site Configurations
 
 Clean-up and Wishlist
 ---
