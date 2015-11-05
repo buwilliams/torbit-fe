@@ -6,6 +6,10 @@ app.controller('ChartsCtrl', function($scope, ChartsFactory) {
   $scope.options = ChartsFactory.options;
   $scope.days = '';
 
+  $scope.init = function() {
+    $scope.getTimeSeriesChart();
+  };
+
   $scope.getTimeSeriesChart = function() {
     if($scope.days === '') {
       ChartsFactory.getData();
@@ -13,5 +17,7 @@ app.controller('ChartsCtrl', function($scope, ChartsFactory) {
       ChartsFactory.getData($scope.days);
     }
   };
+
+  (function() { $scope.init(); })();
 
 });
