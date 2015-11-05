@@ -4,7 +4,8 @@ TODO
 In-progress
 ---
 
-* support SD Admin bootstrap theme in gulpfile build task
+* fix request bug when you first signon and don't do a refresh
+
 
 Backlog
 ---
@@ -39,6 +40,7 @@ Done
 * fix chart going off the screen on smaller browser windows
 * CRUD of Site Configurations
 * fixed refresh on editor edge case
+* support SD Admin bootstrap theme in gulpfile build task
 
 Clean-up and Wishlist
 ---

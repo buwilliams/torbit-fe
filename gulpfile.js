@@ -59,45 +59,68 @@ gulp.task('lint', function() {
 
 gulp.task('minify-css', function() {
   var opts = {comments:true,spare:true};
-  gulp.src([project.app + '/**/*.css', '!' + project.app + '/bower_components/**'])
-    .pipe($.minifyCss(opts))
-    .pipe($.concat('app.min.css'))
-    .pipe(gulp.dest(project.dist + '/'))
+  gulp.src([
+    project.app + '/**/*.css',
+    '!' + project.app + '/bower_components/**'
+  ])
+  .pipe($.minifyCss(opts))
+  .pipe($.concat('app.min.css'))
+  .pipe(gulp.dest(project.dist + '/'));
 });
 
 gulp.task('minify-vendor-css', function() {
   var opts = {comments:true,spare:true};
 
-  // Bootstrap
-  gulp.src([project.app + '/bower_components/bootstrap/dist/**/*.min.css'])
-    .pipe($.concat('bootstrap.min.css'))
-    .pipe(gulp.dest(project.dist + '/bootstrap/css'))
+  // SB Admin
+  gulp.src([
+    project.app + '/bower_components/startbootstrap-sb-admin/css/bootstrap.min.css',
+    project.app + '/bower_components/startbootstrap-sb-admin/css/sb-admin.css',
+    project.app + '/bower_components/startbootstrap-sb-admin/css/plugins/morris.css'
+  ])
+  .pipe($.concat('sb-admin.min.css'))
+  .pipe(gulp.dest(project.dist + '/startbootstrap-sb-admin/css'));
 });
 
 gulp.task('minify-js', function() {
-  gulp.src([project.app + '/features/app.js', project.app + '/**/*.js', '!' + project.app + '/bower_components/**'])
-    .pipe($.uglify({mangle:false}))
-    .pipe($.concat('app.min.js'))
-    .pipe(gulp.dest(project.dist + '/'))
+  gulp.src([
+    project.app + '/features/app.js',
+    project.app + '/**/*.js',
+    '!' + project.app + '/bower_components/**'
+  ])
+  .pipe($.uglify({mangle:false}))
+  .pipe($.concat('app.min.js'))
+  .pipe(gulp.dest(project.dist + '/'));
 });
 
 gulp.task('minify-vendor-js', function() {
-  var filter = $.filter('**/*.js')
-  gulp.src(mainBowerFiles())
-    .pipe(filter)
-    .pipe($.uglify({mangle:false}))
-    .pipe($.concat('vendor.min.js'))
-    .pipe(gulp.dest(project.dist + '/'))
+  var filter = $.filter('**/*.js');
+
+  var jsFiles = mainBowerFiles();
+  jsFiles.push(project.app + '/bower_components/startbootstrap-sb-admin/js/bootstrap.min.js');
+  jsFiles.push(project.app + '/bower_components/startbootstrap-sb-admin/js/plugins/morris.min.js');
+  jsFiles.push(project.app + '/bower_components/startbootstrap-sb-admin/js/plugins/raphael.min.js');
+
+  gulp.src(jsFiles)
+  .pipe(filter)
+  .pipe($.uglify({mangle:false}))
+  .pipe($.concat('vendor.min.js'))
+  .pipe(gulp.dest(project.dist + '/'));
 });
 
 gulp.task('copy-html-files', function () {
-  gulp.src([project.app + '/**/*.html', '!' + project.app + '/templates/**', '!' + project.app + '/index.html'])
+  gulp.src([project.app + '/**/*.html',
+            '!' + project.app + '/bower_components/**',
+            '!' + project.app + '/index.html',
+            '!' + project.app + '/index.dev.html',
+            '!' + project.app + '/index.prod.html'])
     .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('copy-bootstrap-fonts', function () {
-  gulp.src([project.app + '/bower_components/bootstrap/dist/fonts/**'])
-    .pipe(gulp.dest(project.dist + '/bootstrap/fonts'));
+  gulp.src([project.app + '/bower_components/startbootstrap-sb-admin/font-awesome/**/*'])
+    .pipe(gulp.dest(project.dist + '/startbootstrap-sb-admin/font-awesome'));
+  gulp.src([project.app + '/bower_components/startbootstrap-sb-admin/fonts/**/*'])
+    .pipe(gulp.dest(project.dist + '/startbootstrap-sb-admin/fonts'));
 });
 
 gulp.task('copy-index', function () {
