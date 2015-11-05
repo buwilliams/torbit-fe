@@ -1,0 +1,18 @@
+{
+  "id": 1,
+  "domain": "localhost",
+  "scripts": [
+    { "value": "foo" },
+    { "value": "bar" }
+  ],
+  "redirects": [
+    { "key": "keyA", "value": "valueA"},
+    { "key": "keyB", "value": "valueB"}
+  ],
+  "rewriterule": [
+    { "key": "keyC", "ruleKey": "keyD", "ruleValue": "valueD" },
+    { "key": "keyC", "ruleKey": "keyE", "ruleValue": "valueE" },
+    { "key": "keyF", "ruleKey": "keyG", "ruleValue": "valueG" },
+    { "key": "keyF", "ruleKey": "keyH", "ruleValue": "valueH" }
+  ]
+}
