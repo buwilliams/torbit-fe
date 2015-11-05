@@ -13,6 +13,7 @@ app.controller('ConfigEditorCtrl', function($scope, $u, $state, SiteConfigFactor
   };
 
   $scope.save = function() {
+    $scope.clearMessage();
     var config = SiteConfigFactory.angularToConfig($scope.config);
     if(_.isUndefined(config.id)) {
       SiteConfigFactory.createConfig(config, $scope.saveSuccess, $scope.saveError);
