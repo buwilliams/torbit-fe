@@ -66,20 +66,6 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, Config, 
   // Allow cookie to be stored from remote server
   $httpProvider.defaults.withCredentials = true;
 
-  // Configures the format used in the body of POST or PUT
-  var transformBody = function (data, headersGetter) {
-    var key, result = [];
-    if (typeof data === "string") {
-      return data;
-    }
-    for (key in data) {
-      if (data.hasOwnProperty(key)) {
-        result.push(encodeURIComponent(key) + "=" + encodeURIComponent(data[key]));
-      }
-    }
-    return result.join("&");
-  };
-
   $httpProvider.interceptors.push(function($q, $location, AuthFactory) {
     return {
       'request': function(config) {
@@ -87,13 +73,6 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, Config, 
         // Add X-User-Id to all requests so that the backend
         // server can know which client application is calling it
         config.headers['X-User-Id'] = Config.clientId;
-
-        // Configures the format used in the body for authentication
-        // since the backend requires a different format
-        if(config.url === Config.serverUrl + '/login') {
-          config.transformRequest.unshift(transformBody);
-          config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-        }
 
         return config;
       },

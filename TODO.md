@@ -4,7 +4,6 @@ TODO
 In-progress
 ---
 
-* fix request bug when you first signon and don't do a refresh
 
 
 Backlog
@@ -15,7 +14,7 @@ Backlog
 * tests for site administrator factory
 * tests for site administrator controller
 * tests for AuthFactory
-* tests transformBody in app.js
+* tests transformBody in signon-ctrl.js
 * tests to utils-factory find()
 * angular validation on config editor
 
@@ -41,6 +40,7 @@ Done
 * CRUD of Site Configurations
 * fixed refresh on editor edge case
 * support SD Admin bootstrap theme in gulpfile build task
+* fix request bug when you first signon and don't do a refresh
 
 Clean-up and Wishlist
 ---

@@ -9,7 +9,10 @@ app.controller('SignOnCtrl', function($scope, $http, $location, Config, AuthFact
 
   $scope.signon = function() {
     $scope.statusMessage = '';
-    $http.post(Config.serverUrl + '/login', { 'email': $scope.email, 'password': $scope.password })
+    var params = { 'email': $scope.email, 'password': $scope.password };
+    var strParams = $scope.paramsToRequestStr(params);
+    var config = { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } };
+    $http.post(Config.serverUrl + '/login', strParams, config)
       .then(function(httpData) {
         AuthFactory.saveUser(httpData.data);
         $location.path('/home');
@@ -24,6 +27,19 @@ app.controller('SignOnCtrl', function($scope, $http, $location, Config, AuthFact
       .finally(function() {
         $scope.statusMessage = '';
       });
+  };
+
+  $scope.paramsToRequestStr = function(data) {
+    var key, result = [];
+    if (typeof data === "string") {
+      return data;
+    }
+    for (key in data) {
+      if (data.hasOwnProperty(key)) {
+        result.push(encodeURIComponent(key) + "=" + encodeURIComponent(data[key]));
+      }
+    }
+    return result.join("&");
   };
 
   $scope.$watch('email', function() {
