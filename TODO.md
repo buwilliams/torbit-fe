@@ -17,6 +17,7 @@ Backlog
 * tests transformBody in signon-ctrl.js
 * tests to utils-factory find()
 * angular validation on config editor
+* updating the current user should also update the UI
 
 Done
 ---
@@ -48,5 +49,3 @@ Clean-up and Wishlist
 * cache buster for build assets (css, js, etc.)
 * automatically source in angular controllers and services as part of `gulp serve`
 * format dates on chart
-* make charts mobile frendly
-* updating the current user should also update the UI
