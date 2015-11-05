@@ -38,6 +38,7 @@ Done
 * validation for email on users table
 * fix chart going off the screen on smaller browser windows
 * CRUD of Site Configurations
+* fixed refresh on editor edge case
 
 Clean-up and Wishlist
 ---
