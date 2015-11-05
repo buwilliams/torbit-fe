@@ -9,6 +9,8 @@ app.controller('WrapperCtrl', function($scope, $state, User, AuthFactory) {
   $scope.getActive = function(name) {
     if($state.current.name === 'wrapper.' + name) {
       return 'active';
+    } else if(name == 'config' && $state.current.name === 'wrapper.editor') {
+      return 'active';
     } else {
       return '';
     }
