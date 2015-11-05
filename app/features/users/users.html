@@ -81,6 +81,9 @@
               </a>
             </td>
           </tr>
+          <tr ng-show="users.length == 0">
+            <td colspan="2">No users to show.</td>
+          </tr>
           <tr ng-repeat="user in users | orderBy:'email'">
             <td>
               <span>{{ user.email }}</span>
@@ -107,6 +110,6 @@
           </tr>
         </tbody>
       </table>
-    </div>
-  </div>
-</div>
+    </div><!-- /table-responsive -->
+  </div><!-- /panel-body -->
+</div><!-- /panel -->
