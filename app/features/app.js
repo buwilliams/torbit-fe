@@ -47,6 +47,11 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, Config, 
       url: '/config',
       templateUrl: 'features/site-config/site-config.html',
       controller: 'SiteConfigCtrl'
+    })
+    .state('wrapper.editor', {
+      url: '/editor/:configId',
+      templateUrl: 'features/site-config/config-editor.html',
+      controller: 'ConfigEditorCtrl'
     });
 
   // For any unmatched url, redirect to /index

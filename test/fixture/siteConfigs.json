@@ -1,0 +1,21 @@
+[
+  {
+    "id": 1,
+    "domain": "localhost",
+    "scripts": ["foo", "bar"],
+    "redirects": {
+      "keyA": "valueA",
+      "keyB": "valueB"
+    },
+    "rewriterule": {
+      "keyC": {
+        "keyD": "valueD",
+        "keyE": "valueE"
+      },
+      "keyF": {
+        "keyG": "valueG",
+        "keyH": "valueH"
+      }
+    }
+  }
+]

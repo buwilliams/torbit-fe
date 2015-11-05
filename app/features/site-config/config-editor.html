@@ -1,0 +1,92 @@
+<div class="row ng-scope">
+  <div class="col-lg-12">
+    <h1 class="page-header">
+      Config <small>Editor</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="#/config"><i class="fa fa-wrench"></i> Site Configuration</a></li>
+      <li class="active"><i class="fa fa-wrench"></i> Config Editor</li>
+    </ol>
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><i class="fa fa-wrench fa-fw"></i> Config Editor</h3>
+  </div>
+  <div class="panel-body">
+    <div class="grid-options">
+      <button ng-click="createMode.show = true;" class="btn btn-default">
+        <i class="fa fa-plus-circle"></i> Save</button>
+      <button ng-click="createMode.show = false; refresh()" class="btn btn-default">
+        <i class="fa fa-ban"></i> Cancel</button>
+    </div>
+    <div ng-show="message.errorTitle !== ''" class="alert alert-danger">
+      <strong>{{ message.errorTitle }}</strong> {{ message.errorDetails }}
+      <button type="button" class="close" aria-label="Close"
+        ng-click="clearMessage();">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">Domain</h3>
+          </div>
+          <div class="panel-body">
+            site config name goes here
+          </div>
+        </div><!-- /panel -->
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">Scripts</h3>
+          </div>
+          <div class="panel-body">
+            scripts go here
+          </div>
+        </div><!-- /panel -->
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">Rewrite Rules</h3>
+          </div>
+          <div class="panel-body">
+            <div class="col-lg-6">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Rule</h3>
+                </div>
+                <div class="panel-body">
+                  rule stuff here
+                </div>
+              </div><!-- /panel -->
+            </div><!-- /col-lg-6 -->
+            <div class="col-lg-6">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Settings</h3>
+                </div>
+                <div class="panel-body">
+                  rule stuff here
+                </div>
+              </div><!-- /panel -->
+            </div><!-- /col-lg-6 -->
+          </div>
+        </div><!-- /panel -->
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">Redirects</h3>
+          </div>
+          <div class="panel-body">
+            redirects go here
+          </div>
+        </div><!-- /panel -->
+      </div><!-- /col-lg-12 -->
+    </div><!-- /row -->
+    <div class="grid-options">
+      <button ng-click="createMode.show = true;" class="btn btn-default">
+        <i class="fa fa-plus-circle"></i> Save</button>
+      <button ng-click="createMode.show = false; refresh()" class="btn btn-default">
+        <i class="fa fa-ban"></i> Cancel</button>
+    </div>
+  </div><!-- /panel-body -->
+</div><!-- /panel -->
