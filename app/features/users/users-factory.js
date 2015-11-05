@@ -36,7 +36,7 @@ app.factory('UsersFactory', function($http, Config, $u) {
           successFn(httpData.data);
         }
       }, function(httpData) {
-        if(!_.isUndefined(successFn)) {
+        if(!_.isUndefined(errorFn)) {
           errorFn(httpData);
         }
       });
@@ -51,7 +51,7 @@ app.factory('UsersFactory', function($http, Config, $u) {
           successFn(httpData.data);
         }
       }, function(httpData) {
-        if(!_.isUndefined(successFn)) {
+        if(!_.isUndefined(errorFn)) {
           errorFn(httpData);
         }
       });
