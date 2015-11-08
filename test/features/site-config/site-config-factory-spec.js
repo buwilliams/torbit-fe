@@ -39,7 +39,7 @@ describe('SiteConfigFactory', function() {
 
   });
 
-  describe('configToAngular', function() {
+  describe('angularToConfig', function() {
 
     var fixtureNgSiteConfig, fixtureSiteConfig;
 
